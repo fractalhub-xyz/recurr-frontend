@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.recurr_fe">
+    package="com.fractal.recurr">
    <application
         android:label="recurr_fe"
         android:icon="@mipmap/ic_launcher">
