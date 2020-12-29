@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "887387281587",
+    "project_id": "fractalhub-612ee",
+    "storage_bucket": "fractalhub-612ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887387281587:android:13fc2b8ea300f862ba78c6",
+        "android_client_info": {
+          "package_name": "com.fractal.recurr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "887387281587-jotm2n9bfg6ta3d7dg0i4o6lot77ph0d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAy3LpNkGuCa799COYw7gy5guYciz2Uknc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "887387281587-jotm2n9bfg6ta3d7dg0i4o6lot77ph0d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "887387281587-qof189t19rivcqq4nmjtgjvq568f55bs.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.fractal.recurr"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
