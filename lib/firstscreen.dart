@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:recurr_fe/RecurListView.dart';
+import 'package:recurr_fe/addrecur.dart';
 import 'loginpage.dart';
 import 'sign_in.dart';
-import 'RecurListScreen.dart';
 
 class FirstScreen extends StatelessWidget {
   @override
@@ -59,14 +60,22 @@ class FirstScreen extends StatelessWidget {
               ),
               SizedBox(height: 40),
               // Button to go to RecurListScreen
-              RaisedButton(onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (BuildContext context) {
-                    return RecurListScreen();
-                  })
-                );
-              }),
+              RaisedButton(
+                  child: Text('Show list view'),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return RecurListView();
+                    }));
+                  }),
+              RaisedButton(
+                  child: Text('Recur Form'),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return CreateRecurView();
+                    }));
+                  }),
               RaisedButton(
                 onPressed: () {
                   signOutGoogle();
@@ -86,7 +95,7 @@ class FirstScreen extends StatelessWidget {
                 elevation: 5,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40)),
-              )
+              ),
             ],
           ),
         ),
