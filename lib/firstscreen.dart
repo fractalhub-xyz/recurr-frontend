@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'loginpage.dart';
 import 'sign_in.dart';
+import 'RecurListScreen.dart';
 
 class FirstScreen extends StatelessWidget {
   @override
@@ -57,6 +58,15 @@ class FirstScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 40),
+              // Button to go to RecurListScreen
+              RaisedButton(onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                    return RecurListScreen();
+                  })
+                );
+              }),
               RaisedButton(
                 onPressed: () {
                   signOutGoogle();
