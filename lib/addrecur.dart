@@ -8,11 +8,13 @@ class CreateRecurView extends StatelessWidget {
     return MaterialApp(
       title: appTitle,
       home: Scaffold(
-        appBar: AppBar(
-          title: Text(appTitle),
-        ),
-        body: CreateRecurForm(),
-      ),
+          appBar: AppBar(
+            title: Text(appTitle),
+          ),
+          body: Container(
+            padding: EdgeInsets.all(15),
+            child: CreateRecurForm(),
+          )),
     );
   }
 }
@@ -66,7 +68,7 @@ class CreateRecurFormState extends State<CreateRecurForm> {
             decoration: const InputDecoration(
               icon: Icon(Icons.access_time),
               hintText: 'What is the duration of the recur',
-              labelText: 'Recur Name',
+              labelText: 'Recur Duration',
             ),
             onSaved: (String value) {
               print('Duration: $value');
@@ -80,19 +82,20 @@ class CreateRecurFormState extends State<CreateRecurForm> {
               return null;
             },
           ),
-          Slider(
-              value: weight,
-              min: 0,
-              max: 100,
-              divisions: 100,
-              label: weight.round().toString(),
-              onChanged: (double value) {
-                setState(() {
-                  weight = value;
-                });
-              }),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
+          Center(
+            child: Slider(
+                value: weight,
+                min: 0,
+                max: 100,
+                divisions: 100,
+                label: weight.round().toString(),
+                onChanged: (double value) {
+                  setState(() {
+                    weight = value;
+                  });
+                }),
+          ),
+          Center(
             child: ElevatedButton(
               onPressed: () {
                 // Validate returns true if the form is valid, or false

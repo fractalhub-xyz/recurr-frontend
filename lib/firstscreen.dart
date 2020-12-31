@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recurr_fe/RecurListView.dart';
 import 'package:recurr_fe/addrecur.dart';
+import 'package:recurr_fe/LocalNotifications.dart';
 import 'loginpage.dart';
 import 'sign_in.dart';
 
@@ -74,6 +75,14 @@ class FirstScreen extends StatelessWidget {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (BuildContext context) {
                       return CreateRecurView();
+                    }));
+                  }),
+              RaisedButton(
+                  child: Text('Notification Page'),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return NotificationTestPage();
                     }));
                   }),
               RaisedButton(
