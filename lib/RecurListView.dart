@@ -10,7 +10,7 @@ Future<List> getRecurs() async {
   HttpsCallable callable =
       FirebaseFunctions.instance.httpsCallable('getAllRecurs');
   final results = await callable();
-  return results.data;
+  return results.data['data'];
 }
 
 class _RecurListViewState extends State<RecurListView> {
@@ -35,7 +35,7 @@ class _RecurListViewState extends State<RecurListView> {
               return ListView.builder(
                 itemCount: recurs.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return ListTile(title: Text('${recurs[index].title}'));
+                  return ListTile(title: Text('${recurs[index]['title']}'));
                 },
               );
             } else if (snapshot.hasError) {
