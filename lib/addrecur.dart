@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:recurr_fe/firstscreen.dart';
 
 class CreateRecurView extends StatelessWidget {
   @override
@@ -35,10 +37,55 @@ bool isNumeric(String s) {
 // This class holds data related to the form.
 class CreateRecurFormState extends State<CreateRecurForm> {
   final _formKey = GlobalKey<FormState>();
-  String recurName;
-  int duration;
+  String title = 'Default';
+  int duration = 10;
   bool check;
   double weight = 0;
+
+  final create = FirebaseFunctions.instance.httpsCallable('createRecur');
+
+  createRecur() async {
+    try {
+      final HttpsCallableResult result = await create.call(
+        <String, dynamic>{
+          'title': title,
+          'duration': duration,
+        },
+      );
+      print(result.data);
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: Column(
+            children: [
+              Text('Alert with ID ${result.data['id']} has been created'),
+              RaisedButton(
+                  child: Text('Ok'),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return FirstScreen();
+                    }));
+                  }),
+            ],
+          ),
+        ),
+      );
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: Column(
+            children: [
+              Text('Error $e has occured'),
+            ],
+          ),
+        ),
+      );
+      print('caught generic exception');
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +103,9 @@ class CreateRecurFormState extends State<CreateRecurForm> {
             ),
             onSaved: (String value) {
               print('Recur name: $value');
+              setState(() {
+                title = value;
+              });
             },
             validator: (value) {
               if (value.isEmpty) {
@@ -72,6 +122,9 @@ class CreateRecurFormState extends State<CreateRecurForm> {
             ),
             onSaved: (String value) {
               print('Duration: $value');
+              setState(() {
+                duration = int.parse(value);
+              });
             },
             validator: (value) {
               if (value.isEmpty) {
@@ -104,6 +157,7 @@ class CreateRecurFormState extends State<CreateRecurForm> {
                   _formKey.currentState.save();
                   print('weight $weight');
                   print('posted');
+                  createRecur();
                 }
               },
               child: Text('Submit'),
