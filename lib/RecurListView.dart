@@ -22,21 +22,47 @@ class _RecurListViewState extends State<RecurListView> {
     recurs = getRecurs();
   }
 
+  Widget recurCard(recur) {
+    return Card(
+      child: ListTile(
+        leading: GestureDetector(
+          onTap: () {
+            print('taptaptap');
+          },
+          child: Container(
+            width: 48,
+            height: 48,
+            padding: EdgeInsets.symmetric(vertical: 4.0),
+            alignment: Alignment.center,
+            child: CircleAvatar(),
+          ),
+        ),
+        title: Text(recur['title']),
+        subtitle: Text('A sufficiently long subtitle warrants three lines.'),
+        trailing: Icon(Icons.more_vert),
+        isThreeLine: true,
+        onTap: () {
+          print('opening detail page of recur ${recur['title']}');
+        },
+        enabled: true,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Center(child: Text('List View')),
+      ),
       body: Center(
         child: FutureBuilder(
           future: recurs,
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasData) {
               List recurs = snapshot.data;
-              return ListView.builder(
-                itemCount: recurs.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(title: Text('${recurs[index]['title']}'));
-                },
+              return ListView(
+                children: recurs.map((recur) => recurCard(recur)).toList(),
               );
             } else if (snapshot.hasError) {
               return Text(snapshot.error.toString());
