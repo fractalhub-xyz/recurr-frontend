@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:recurr_fe/conn.dart';
 import 'sign_in.dart';
 import 'firstscreen.dart';
 
@@ -8,6 +10,24 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  StreamSubscription _connectionChangeStream;
+
+  @override
+  void initState() {
+    super.initState();
+
+    ConnectionStatusSingleton connectionStatus =
+        ConnectionStatusSingleton.getInstance();
+    _connectionChangeStream =
+        connectionStatus.connectionChange.listen(connectionChanged);
+  }
+
+  void connectionChanged(dynamic hasConnection) {
+    setState(() {
+      print('connection >> $hasConnection');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
