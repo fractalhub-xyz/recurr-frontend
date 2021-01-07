@@ -18,9 +18,13 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     _connectivity.onConnectivityChanged.listen((event) {
+<<<<<<< HEAD
       Future<bool> hasConnection = checkConnection();
       print(event.toString());
       hasConnection.then((value) => print(value));
+=======
+      print(event);
+>>>>>>> ced0b74834851a4cc6530fc09767f4317fe4f3e7
     });
   }
 
