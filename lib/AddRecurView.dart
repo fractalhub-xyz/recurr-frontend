@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:recurr_fe/firstscreen.dart';
+import 'package:recurr_fe/RecurListView.dart';
 
 class CreateRecurView extends StatelessWidget {
   @override
@@ -64,7 +64,7 @@ class CreateRecurFormState extends State<CreateRecurForm> {
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (BuildContext context) {
-                      return FirstScreen();
+                      return RecurListView();
                     }));
                   }),
             ],

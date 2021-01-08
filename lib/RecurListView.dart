@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:recurr_fe/AddRecurView.dart';
-import 'package:recurr_fe/RecurDetailView.dart';
+import 'package:recurr_fe/Widgets/RecurTile.dart';
 
 class RecurListView extends StatefulWidget {
   @override
@@ -26,88 +26,6 @@ class _RecurListViewState extends State<RecurListView> {
 
   @override
   Widget build(BuildContext context) {
-    Widget recurCard(recur) {
-      return Container(
-        margin: EdgeInsets.only(bottom: 9),
-        foregroundDecoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-        ),
-        child: Ink(
-          color: Colors.grey[200],
-          child: InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => RecurDetailView(),
-                ),
-              );
-            },
-            splashColor: Colors.grey[300],
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 8),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        recur['title'],
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 5),
-                            child: Text(
-                              'group',
-                              style: TextStyle(
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                          Icon(Icons.group),
-                        ],
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('weekdays'),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 5),
-                            child: Text(
-                              '7/8',
-                              style: TextStyle(
-                                fontSize: 11,
-                              ),
-                            ),
-                          ),
-                          Icon(
-                            Icons.done_all,
-                            size: 11,
-                          ),
-                        ],
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -174,11 +92,12 @@ class _RecurListViewState extends State<RecurListView> {
                   builder:
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                     if (snapshot.hasData) {
-                      List recurs = snapshot.data;
+                      List recurrs = snapshot.data;
                       return ListView(
                         shrinkWrap: true,
-                        children:
-                            recurs.map((recur) => recurCard(recur)).toList(),
+                        children: recurrs
+                            .map((recurr) => RecurTile(recurr: recurr))
+                            .toList(),
                       );
                     } else if (snapshot.hasError) {
                       return Text(snapshot.error.toString());
