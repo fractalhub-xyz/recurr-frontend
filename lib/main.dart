@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'loginpage.dart';
+import 'package:recurr_fe/LoginView.dart';
 
 void main() {
   runApp(MyApp());

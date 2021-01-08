@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:recurr_fe/addrecur.dart';
+import 'package:recurr_fe/AddRecurView.dart';
+import 'package:recurr_fe/RecurDetailView.dart';
 
 class RecurListView extends StatefulWidget {
   @override
@@ -23,52 +24,28 @@ class _RecurListViewState extends State<RecurListView> {
     recurs = getRecurs();
   }
 
-  Widget recurCard(recur) {
-    return Card(
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey[300],
+  @override
+  Widget build(BuildContext context) {
+    Widget recurCard(recur) {
+      return Container(
+        margin: EdgeInsets.only(bottom: 9),
+        foregroundDecoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
         ),
-        child: ListTile(
-          leading: GestureDetector(
+        child: Ink(
+          color: Colors.grey[200],
+          child: InkWell(
             onTap: () {
-              print('taptaptap');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RecurDetailView(),
+                ),
+              );
             },
+            splashColor: Colors.grey[300],
             child: Container(
-              width: 48,
-              height: 68,
-              padding: EdgeInsets.symmetric(vertical: 8.0),
-              alignment: Alignment.center,
-              child: CircleAvatar(),
-            ),
-          ),
-          title: Text(recur['title']),
-          subtitle: Text('A sufficiently long subtitle warrants three lines.'),
-          trailing: Icon(Icons.more_vert),
-          isThreeLine: true,
-          onTap: () {
-            print('opening detail page of recur ${recur['title']}');
-          },
-          enabled: true,
-        ),
-      ),
-    );
-  }
-
-  Widget recurCard2(recur) {
-    return GestureDetector(
-      onTap: () {
-        print('opening detail page of recur ${recur['title']}');
-      },
-      child: Container(
-          margin: EdgeInsets.only(bottom: 7),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-          child: Card(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-              ),
-              padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 12),
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 8),
               child: Column(
                 children: [
                   Row(
@@ -126,12 +103,11 @@ class _RecurListViewState extends State<RecurListView> {
                 ],
               ),
             ),
-          )),
-    );
-  }
+          ),
+        ),
+      );
+    }
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -202,7 +178,7 @@ class _RecurListViewState extends State<RecurListView> {
                       return ListView(
                         shrinkWrap: true,
                         children:
-                            recurs.map((recur) => recurCard2(recur)).toList(),
+                            recurs.map((recur) => recurCard(recur)).toList(),
                       );
                     } else if (snapshot.hasError) {
                       return Text(snapshot.error.toString());
