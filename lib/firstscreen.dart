@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recurr_fe/RecurListView.dart';
-import 'package:recurr_fe/addrecur.dart';
-import 'package:recurr_fe/LocalNotifications.dart';
 import 'loginpage.dart';
 import 'sign_in.dart';
 
@@ -23,7 +20,7 @@ class FirstScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               CircleAvatar(
-                backgroundImage: NetworkImage(
+                backgroundImage:  NetworkImage(
                   imageUrl,
                 ),
                 radius: 60,
@@ -64,26 +61,17 @@ class FirstScreen extends StatelessWidget {
               RaisedButton(
                   child: Text('Show list view'),
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return RecurListView();
-                    }));
+                    Navigator.pushNamed(context, '/recur/list');
                   }),
               RaisedButton(
                   child: Text('Recur Form'),
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return CreateRecurView();
-                    }));
+                    Navigator.pushNamed(context, '/recur/create');
                   }),
               RaisedButton(
                   child: Text('Notification Page'),
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return NotificationTestPage();
-                    }));
+                    Navigator.pushNamed(context, '/notification');
                   }),
               RaisedButton(
                 onPressed: () {

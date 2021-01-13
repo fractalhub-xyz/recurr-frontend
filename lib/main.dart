@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'loginpage.dart';
+import 'package:recurr_fe/LocalNotifications.dart';
+import 'package:recurr_fe/RecurListView.dart';
+import 'package:recurr_fe/addrecur.dart';
+import 'package:recurr_fe/firstscreen.dart';
+import 'package:recurr_fe/loginpage.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +18,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      initialRoute: '/login',
+      routes: {
+        '/login': (context) => LoginPage(),
+        '/': (context) => FirstScreen(),
+        '/recur/create': (context) => CreateRecurView(),
+        '/recur/list': (context) => RecurListView(),
+        'notification': (context) => NotificationTestPage(),
+      },
     );
   }
 }

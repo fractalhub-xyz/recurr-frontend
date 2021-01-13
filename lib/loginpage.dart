@@ -2,9 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-// import 'package:recurr_fe/conn.dart';
 import 'sign_in.dart';
-import 'firstscreen.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -66,13 +64,7 @@ class _LoginPageState extends State<LoginPage> {
       onPressed: () {
         signInWithGoogle().then((result) {
           if (result != null) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return FirstScreen();
-                },
-              ),
-            );
+            Navigator.pushReplacementNamed(context, '/');
           }
         });
       },
