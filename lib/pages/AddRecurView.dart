@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:recurr_fe/RecurListView.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:recurr_fe/pages/RecurListView.dart';
+import 'package:recurr_fe/models/recurr.dart';
+import 'package:recurr_fe/redux/actions/recurr_actions.dart';
+import 'package:recurr_fe/redux/appState.dart';
 
 class CreateRecurView extends StatelessWidget {
   @override
@@ -44,33 +48,52 @@ class CreateRecurFormState extends State<CreateRecurForm> {
 
   final create = FirebaseFunctions.instance.httpsCallable('createRecur');
 
-  createRecur() async {
+  createRecur(BuildContext context) {
+    // >>>>> Upload to cloud ?
+    // try {
+    //   final HttpsCallableResult result = await create.call(
+    //     <String, dynamic>{
+    //       'title': title,
+    //       'duration': duration,
+    //     },
+    //   );
+    //   print(result.data);
+    //   showDialog(
+    //     context: context,
+    //     builder: (context) => AlertDialog(
+    //       content: Column(
+    //         children: [
+    //           Text('Alert with ID ${result.data['id']} has been created'),
+    //           RaisedButton(
+    //               child: Text('Ok'),
+    //               onPressed: () {
+    //                 Navigator.pop(context);
+    //               }),
+    //         ],
+    //       ),
+    //     ),
+    //   );
+    // } catch (e) {
+    //   showDialog(
+    //     context: context,
+    //     builder: (context) => AlertDialog(
+    //       content: Column(
+    //         children: [
+    //           Text('Error $e has occured'),
+    //         ],
+    //       ),
+    //     ),
+    //   );
+    //   print('caught generic exception');
+    //   print(e);
+    // }
     try {
-      final HttpsCallableResult result = await create.call(
-        <String, dynamic>{
-          'title': title,
-          'duration': duration,
-        },
-      );
-      print(result.data);
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          content: Column(
-            children: [
-              Text('Alert with ID ${result.data['id']} has been created'),
-              RaisedButton(
-                  child: Text('Ok'),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return RecurListView();
-                    }));
-                  }),
-            ],
-          ),
-        ),
-      );
+      String uuid = DateTime.now().toIso8601String();
+      String ts = DateTime.now().toIso8601String();
+      var newRecur = Recurr(uuid, title, duration, ts);
+      StoreProvider.of<AppState>(context)
+          .dispatch(AddRecurrAction(item: newRecur));
+      // Navigator.pushNamed(context, '/recur/list');
     } catch (e) {
       showDialog(
         context: context,
@@ -157,7 +180,7 @@ class CreateRecurFormState extends State<CreateRecurForm> {
                   _formKey.currentState.save();
                   print('weight $weight');
                   print('posted');
-                  createRecur();
+                  createRecur(context);
                 }
               },
               child: Text('Submit'),

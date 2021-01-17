@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recurr_fe/RecurDetailView.dart';
+import 'package:recurr_fe/pages/RecurDetailView.dart';
 
 class RecurTile extends StatelessWidget {
   final dynamic recurr;
@@ -19,7 +19,7 @@ class RecurTile extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => RecurDetailView(recurr: recurr),
+                builder: (context) => RecurDetailView(recur: recurr),
               ),
             );
           },

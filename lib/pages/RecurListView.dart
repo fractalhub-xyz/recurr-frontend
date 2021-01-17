@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:recurr_fe/AddRecurView.dart';
+import 'package:recurr_fe/pages/AddRecurView.dart';
 import 'package:recurr_fe/Widgets/RecurTile.dart';
 
 class RecurListView extends StatefulWidget {

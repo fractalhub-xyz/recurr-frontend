@@ -33,6 +33,9 @@ dependencies:
   flutter_local_notifications: ^1.4.4+1
   connectivity: ^2.0.2
   fl_chart: ^0.12.2
+  redux: ^4.0.0+3
+  flutter_redux: ^0.7.0
+  redux_persist: ^0.8.4
 
 dev_dependencies:
   flutter_test:
