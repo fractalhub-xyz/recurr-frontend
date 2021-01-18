@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:io';
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 // import 'package:recurr_fe/conn.dart';
 import '../sign_in.dart';
@@ -11,34 +8,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final Connectivity _connectivity = Connectivity();
-
-  @override
-  void initState() {
-    super.initState();
-    _connectivity.onConnectivityChanged.listen((event) {
-      Future<bool> hasConnection = checkConnection();
-      print(event.toString());
-      hasConnection.then((value) => print(value));
-    });
-  }
-
-  //The test to actually see if there is a connection
-  Future<bool> checkConnection() async {
-    bool hasConnection;
-    try {
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        hasConnection = true;
-      } else {
-        hasConnection = false;
-      }
-    } on SocketException catch (_) {
-      hasConnection = false;
-    }
-    return hasConnection;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
