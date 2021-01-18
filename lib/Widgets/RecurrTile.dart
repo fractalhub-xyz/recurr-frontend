@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:recurr_fe/models/recurr.dart';
 import 'package:recurr_fe/pages/RecurDetailView.dart';
 
-class RecurTile extends StatelessWidget {
-  final dynamic recurr;
-  RecurTile({this.recurr});
+class RecurrTile extends StatelessWidget {
+  final Recurr recurr;
+  RecurrTile({this.recurr});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class RecurTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      recurr['title'],
+                      recurr.title,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:recurr_fe/pages/RecurListView.dart';
+import 'package:recurr_fe/pages/RecurrListView.dart';
 import 'package:recurr_fe/models/recurr.dart';
 import 'package:recurr_fe/redux/actions/recurr_actions.dart';
 import 'package:recurr_fe/redux/appState.dart';
@@ -93,7 +93,7 @@ class CreateRecurFormState extends State<CreateRecurForm> {
       var newRecur = Recurr(uuid, title, duration, ts);
       StoreProvider.of<AppState>(context)
           .dispatch(AddRecurrAction(item: newRecur));
-      // Navigator.pushNamed(context, '/recur/list');
+      Navigator.pushNamed(context, '/recur/list');
     } catch (e) {
       showDialog(
         context: context,

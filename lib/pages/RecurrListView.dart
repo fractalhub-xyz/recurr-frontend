@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:recurr_fe/Widgets/RecurTile.dart';
+import 'package:recurr_fe/Widgets/RecurrTile.dart';
 import 'package:recurr_fe/models/recurr.dart';
-import 'package:recurr_fe/pages/AddRecurView.dart';
 import 'package:recurr_fe/redux/appState.dart';
 
-class RecurListView extends StatefulWidget {
+class RecurrListView extends StatefulWidget {
   @override
-  _RecurListViewState createState() => _RecurListViewState();
+  _RecurrListViewState createState() => _RecurrListViewState();
 }
 
 Future<List> getRecurs() async {
@@ -18,7 +17,7 @@ Future<List> getRecurs() async {
   return results.data['data'];
 }
 
-class _RecurListViewState extends State<RecurListView> {
+class _RecurrListViewState extends State<RecurrListView> {
   Future<List> recurs;
 
   @override
@@ -77,8 +76,7 @@ class _RecurListViewState extends State<RecurListView> {
                       // CREATE RECUR BUTTON
                       RaisedButton.icon(
                         onPressed: () {
-                          Navigator.pushReplacementNamed(
-                              context, '/recur/create');
+                          Navigator.pushNamed(context, '/recur/create');
                         },
                         icon: Icon(
                           Icons.add,
@@ -104,7 +102,7 @@ class _RecurListViewState extends State<RecurListView> {
                     child: ListView(
                       shrinkWrap: true,
                       children: recurrs
-                          .map((recurr) => RecurTile(recurr: recurr))
+                          .map((recurr) => RecurrTile(recurr: recurr))
                           .toList(),
                     ),
                   ),

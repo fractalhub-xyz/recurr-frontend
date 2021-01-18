@@ -18,6 +18,8 @@ class AppState {
   static AppState fromJson(dynamic json) {
     if (json == null) {
       return AppState();
+    } else if (json['recurrs'].length == 0) {
+      return AppState();
     }
 
     return AppState(
