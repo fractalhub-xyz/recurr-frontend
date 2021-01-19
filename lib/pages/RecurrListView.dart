@@ -26,6 +26,45 @@ class _RecurrListViewState extends State<RecurrListView> {
     recurs = getRecurs();
   }
 
+  Widget dateCard(day, date, score) {
+    Color accent = Colors.blue;
+
+    switch (score) {
+      case "100":
+        {
+          accent = Colors.blue[400];
+        }
+        break;
+      case "50":
+        {
+          accent = Colors.blue[200];
+        }
+        break;
+      case "0":
+        {
+          accent = Colors.blue[100];
+        }
+        break;
+    }
+
+    return Container(
+        width: 45,
+        margin: EdgeInsets.only(left: 8),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10), color: accent),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(day),
+            SizedBox(
+              height: 10,
+            ),
+            Text(date),
+          ],
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, List<Recurr>>(
@@ -58,9 +97,65 @@ class _RecurrListViewState extends State<RecurrListView> {
                   ),
                 ),
 
-                // ROW 2 : ADD RECUR BUTTON
+                // ROW 2 : YOUR LOG + CHECKIN
                 Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // TEXT: "YOUR LOGS"
+                      Text(
+                        'Your log',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+
+                      // CHECK IN BUTTON
+                      RaisedButton.icon(
+                        onPressed: () {
+                          print('implement checkin page');
+                        },
+                        icon: Icon(
+                          Icons.done_all,
+                          size: 12,
+                        ),
+                        label: Text(
+                          'Check in',
+                          style: TextStyle(
+                            fontSize: 12,
+                          ),
+                        ),
+                        color: Colors.grey[100],
+                      ),
+                    ],
+                  ),
+                ),
+
+                Container(
+                  padding: EdgeInsets.all(12.0),
+                  decoration: BoxDecoration(),
+                  height: 95.0,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: <Widget>[
+                      dateCard('Mon', '7', '100'),
+                      dateCard('Mon', '7', '50'),
+                      dateCard('Mon', '7', '100'),
+                      dateCard('Mon', '7', '0'),
+                      dateCard('Mon', '7', '50'),
+                      dateCard('Mon', '7', '50'),
+                      dateCard('Mon', '7', '0'),
+                      dateCard('Mon', '7', '100'),
+                      dateCard('Mon', '7', '0'),
+                    ],
+                  ),
+                ),
+
+                // ROW 4 : ADD RECUR BUTTON
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
