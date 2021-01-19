@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
       onPressed: () {
         signInWithGoogle().then((result) {
           if (result != null) {
-            Navigator.pushReplacementNamed(context, '/recur/list');
+            Navigator.pushReplacementNamed(context, '/');
           }
         });
       },

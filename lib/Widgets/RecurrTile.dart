@@ -67,7 +67,7 @@ class RecurrTile extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 5),
                           child: Text(
-                            '7/8',
+                            '0/${recurr.duration}',
                             style: TextStyle(
                               fontSize: 11,
                             ),

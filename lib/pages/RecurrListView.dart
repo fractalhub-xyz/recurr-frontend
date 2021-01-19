@@ -95,15 +95,17 @@ class _RecurrListViewState extends State<RecurrListView> {
                 ),
 
                 // LIST OF RECURRS
-                Container(
-                  decoration: BoxDecoration(),
-                  padding: const EdgeInsets.all(7.0),
-                  child: Center(
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: recurrs
-                          .map((recurr) => RecurrTile(recurr: recurr))
-                          .toList(),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(),
+                    padding: const EdgeInsets.all(7.0),
+                    child: Center(
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: recurrs
+                            .map((recurr) => RecurrTile(recurr: recurr))
+                            .toList(),
+                      ),
                     ),
                   ),
                 ),

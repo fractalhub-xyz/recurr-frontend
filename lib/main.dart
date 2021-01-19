@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:recurr_fe/pages/AddRecurrView.dart';
+import 'package:recurr_fe/pages/CreateRecurrView.dart';
 import 'package:recurr_fe/LocalNotifications.dart';
+import 'package:recurr_fe/pages/Home.dart';
 import 'package:recurr_fe/pages/LoginView.dart';
 import 'package:recurr_fe/pages/RecurrListView.dart';
 import 'package:recurr_fe/redux/appState.dart';
@@ -67,6 +68,7 @@ class _MyAppState extends State<MyApp> {
           initialRoute: '/login',
           routes: {
             '/login': (context) => LoginPage(),
+            '/': (context) => HomeScreen(),
             '/recur/create': (context) => CreateRecurView(),
             '/recur/list': (context) => RecurrListView(),
             'notification': (context) => NotificationTestPage(),
