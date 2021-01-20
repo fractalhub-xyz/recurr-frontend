@@ -4,6 +4,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:recurr_fe/Widgets/RecurrTile.dart';
 import 'package:recurr_fe/models/recurr.dart';
 import 'package:recurr_fe/redux/appState.dart';
+import 'package:recurr_fe/sign_in.dart';
 
 class RecurrListView extends StatefulWidget {
   @override
@@ -86,13 +87,19 @@ class _RecurrListViewState extends State<RecurrListView> {
                     children: [
                       // HELLO USER
                       Text(
-                        'Hello User ',
+                        'Hello $name !',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      CircleAvatar(),
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(
+                          imageUrl,
+                        ),
+                        radius: 20,
+                        backgroundColor: Colors.transparent,
+                      ),
                     ],
                   ),
                 ),
@@ -115,7 +122,7 @@ class _RecurrListViewState extends State<RecurrListView> {
                       // CHECK IN BUTTON
                       RaisedButton.icon(
                         onPressed: () {
-                          print('implement checkin page');
+                          Navigator.pushNamed(context, '/recur/checkin');
                         },
                         icon: Icon(
                           Icons.done_all,
@@ -194,13 +201,11 @@ class _RecurrListViewState extends State<RecurrListView> {
                   child: Container(
                     decoration: BoxDecoration(),
                     padding: const EdgeInsets.all(7.0),
-                    child: Center(
-                      child: ListView(
-                        shrinkWrap: true,
-                        children: recurrs
-                            .map((recurr) => RecurrTile(recurr: recurr))
-                            .toList(),
-                      ),
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: recurrs
+                          .map((recurr) => RecurrTile(recurr: recurr))
+                          .toList(),
                     ),
                   ),
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:recurr_fe/pages/CheckinView.dart';
 import 'package:recurr_fe/pages/CreateRecurrView.dart';
 import 'package:recurr_fe/LocalNotifications.dart';
 import 'package:recurr_fe/pages/Home.dart';
@@ -70,6 +71,7 @@ class _MyAppState extends State<MyApp> {
             '/login': (context) => LoginPage(),
             '/': (context) => HomeScreen(),
             '/recur/create': (context) => CreateRecurView(),
+            '/recur/checkin': (context) => CheckinView(),
             '/recur/list': (context) => RecurrListView(),
             'notification': (context) => NotificationTestPage(),
           },
