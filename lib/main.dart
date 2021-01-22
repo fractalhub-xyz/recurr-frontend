@@ -5,6 +5,7 @@ import 'package:recurr_fe/screens/CheckinView/CheckinView.dart';
 import 'package:recurr_fe/screens/CreateRecurrView/CreateRecurrView.dart';
 import 'package:recurr_fe/screens/Home/HomeView.dart';
 import 'package:recurr_fe/screens/Login/LoginView.dart';
+import 'package:recurr_fe/redux/actions/connectivity_actions.dart';
 import 'package:recurr_fe/redux/appState.dart';
 import 'package:recurr_fe/redux/store.dart';
 import 'package:redux/redux.dart';
@@ -36,7 +37,10 @@ class _MyAppState extends State<MyApp> {
     _connectivity.onConnectivityChanged.listen((event) {
       Future<bool> hasConnection = checkConnection();
       print(event.toString());
-      hasConnection.then((value) => print(value));
+      hasConnection.then((bool value) {
+        print("Connectivity update:  $value");
+        StoreProvider.of<AppState>(context).dispatch(SetConnectivityAction(value));
+      });
     });
   }
 

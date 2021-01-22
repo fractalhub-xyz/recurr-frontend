@@ -2,10 +2,14 @@ import 'package:recurr_fe/models/recurr.dart';
 
 class AppState {
   final List<Recurr> recurrs;
+  final bool connectivity;
 
   // curly braces for named parameters
   // need to initial because member is final
-  AppState({this.recurrs = const []});
+  AppState({
+    this.recurrs = const [],
+    this.connectivity = false,
+  });
 
   /*
     State Persistence
