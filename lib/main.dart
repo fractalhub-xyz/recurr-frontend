@@ -19,16 +19,26 @@ void main() async {
   runApp(MyApp(store));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   final Store<AppState> store;
 
   MyApp(this.store);
 
   @override
-  _MyAppState createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return new StoreProvider(
+      store: store,
+      child: _AppWithConnection(),
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
+class _AppWithConnection extends StatefulWidget {
+  @override
+  __AppWithConnectionState createState() => __AppWithConnectionState();
+}
+
+class __AppWithConnectionState extends State<_AppWithConnection> {
   final Connectivity _connectivity = Connectivity();
 
   @override
@@ -38,8 +48,9 @@ class _MyAppState extends State<MyApp> {
       Future<bool> hasConnection = checkConnection();
       print(event.toString());
       hasConnection.then((bool value) {
-        print("Connectivity update:  $value");
-        StoreProvider.of<AppState>(context).dispatch(SetConnectivityAction(value));
+        print("Connectivity updated: $value");
+        StoreProvider.of<AppState>(context)
+            .dispatch(SetConnectivityAction(value));
       });
     });
   }
@@ -62,21 +73,26 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreProvider(
-        store: widget.store,
-        child: new MaterialApp(
-          title: 'Flutter Login',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          initialRoute: '/login',
-          routes: {
-            '/login': (context) => LoginView(),
-            '/': (context) => HomeView(),
-            '/recur/create': (context) => CreateRecurView(),
-            '/recur/checkin': (context) => CheckinView(),
-            'notification': (context) => NotificationTestPage(),
-          },
-        ));
+    return App();
+  }
+}
+
+class App extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Login',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      initialRoute: '/login',
+      routes: {
+        '/login': (context) => LoginView(),
+        '/': (context) => HomeView(),
+        '/recur/create': (context) => CreateRecurView(),
+        '/recur/checkin': (context) => CheckinView(),
+        'notification': (context) => NotificationTestPage(),
+      },
+    );
   }
 }
