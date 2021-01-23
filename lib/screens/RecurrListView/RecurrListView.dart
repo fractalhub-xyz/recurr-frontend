@@ -3,7 +3,7 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:recurr_fe/constants.dart';
 import 'package:recurr_fe/models/recurr.dart';
-import 'package:recurr_fe/redux/appState.dart';
+import 'package:recurr_fe/redux/state/app_state.dart';
 import 'package:recurr_fe/screens/RecurrListView/components/calender.dart';
 import 'package:recurr_fe/screens/RecurrListView/components/nameWithAvatar.dart';
 import 'package:recurr_fe/screens/RecurrListView/components/quote.dart';

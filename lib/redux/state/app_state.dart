@@ -1,5 +1,5 @@
 import 'package:recurr_fe/models/recurr.dart';
-import 'package:recurr_fe/redux/syncState.dart';
+import 'package:recurr_fe/redux/state/sync_state.dart';
 
 class AppState {
   final List<Recurr> recurrs;

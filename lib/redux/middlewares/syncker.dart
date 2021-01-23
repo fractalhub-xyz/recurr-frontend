@@ -1,6 +1,6 @@
 import 'package:recurr_fe/redux/actions/sync_actions.dart';
 import 'package:redux/redux.dart';
-import '../appState.dart';
+import '../state/app_state.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 
 final syncableActions = List.unmodifiable([

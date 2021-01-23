@@ -1,6 +1,6 @@
 
 import 'package:recurr_fe/redux/actions/sync_actions.dart';
-import 'package:recurr_fe/redux/syncState.dart';
+import 'package:recurr_fe/redux/state/sync_state.dart';
 import 'package:redux/redux.dart';
 
 Reducer<SyncState> syncReducer = combineReducers([

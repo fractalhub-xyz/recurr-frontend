@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:recurr_fe/LocalNotifications.dart';
-import 'package:recurr_fe/screens/CheckinView/CheckinView.dart';
-import 'package:recurr_fe/screens/CreateRecurrView/CreateRecurrView.dart';
-import 'package:recurr_fe/screens/Home/HomeView.dart';
-import 'package:recurr_fe/screens/Login/LoginView.dart';
+import 'package:recurr_fe/app.dart';
 import 'package:recurr_fe/redux/actions/sync_actions.dart';
-import 'package:recurr_fe/redux/appState.dart';
+import 'package:recurr_fe/redux/state/app_state.dart';
 import 'package:recurr_fe/redux/store.dart';
 import 'package:redux/redux.dart';
 import 'dart:async';
@@ -75,25 +71,5 @@ class __AppWithConnectionState extends State<_AppWithConnection> {
   @override
   Widget build(BuildContext context) {
     return App();
-  }
-}
-
-class App extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Login',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      initialRoute: '/login',
-      routes: {
-        '/login': (context) => LoginView(),
-        '/': (context) => HomeView(),
-        '/recur/create': (context) => CreateRecurView(),
-        '/recur/checkin': (context) => CheckinView(),
-        'notification': (context) => NotificationTestPage(),
-      },
-    );
   }
 }

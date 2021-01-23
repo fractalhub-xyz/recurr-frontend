@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:recurr_fe/redux/appState.dart';
+import 'package:recurr_fe/redux/state/app_state.dart';
 import 'package:recurr_fe/redux/middlewares/logger.dart';
 import 'package:recurr_fe/redux/middlewares/syncker.dart';
 import 'package:recurr_fe/redux/reducers/root_reducer.dart';
