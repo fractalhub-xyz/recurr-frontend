@@ -41,7 +41,9 @@ void retryMiddleware(
     Store<AppState> store, dynamic action, NextDispatcher next) async {
   next(action);
 
-  if (!(action is SetConnectivityAction && action.newState == true)) {
+  if (!(action is SetConnectivityAction &&
+      action.newState == true &&
+      store.state.sync.retry.length > 0)) {
     return;
   }
 

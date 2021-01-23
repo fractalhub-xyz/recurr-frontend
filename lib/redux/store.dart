@@ -21,6 +21,7 @@ Future<Store<AppState>> getStore() async {
     rootReducer,
     initialState: initialState ?? AppState(),
     middleware: [
+      persistor.createMiddleware(),
       loggerMiddleware,
       syncMiddleware,
       retryMiddleware,

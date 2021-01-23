@@ -8,10 +8,11 @@ import 'package:redux/redux.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:connectivity/connectivity.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() async {
   Store<AppState> store = await getStore();
-
+  // You can request multiple permissions at once.
   runApp(MyApp(store));
 }
 
@@ -41,6 +42,7 @@ class __AppWithConnectionState extends State<_AppWithConnection> {
   @override
   void initState() {
     super.initState();
+    getPerimisions();
     _connectivity.onConnectivityChanged.listen((event) {
       Future<bool> hasConnection = checkConnection();
       print(event.toString());
@@ -50,6 +52,14 @@ class __AppWithConnectionState extends State<_AppWithConnection> {
             .dispatch(SetConnectivityAction(value));
       });
     });
+  }
+
+  getPerimisions() async {
+    // You can request multiple permissions at once.
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.storage,
+    ].request();
+    print(statuses[Permission.storage]);
   }
 
   //The test to actually see if there is a connection
