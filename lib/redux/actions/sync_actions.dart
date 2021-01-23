@@ -19,13 +19,13 @@ class SetIsSyncingAction {
 }
 
 class AddToRetryQueueAction {
-  final List<String> action;
+  final List action;
 
   AddToRetryQueueAction(this.action);
 
   // For middleware
   String type() => "ADD_TO_RETRY_QUEUE";
-  List<String> payload() => action;
+  List payload() => action;
 }
 
 class ClearRetryQueueAction {

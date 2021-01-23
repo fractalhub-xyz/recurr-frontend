@@ -22,7 +22,8 @@ Future<Store<AppState>> getStore() async {
     initialState: initialState ?? AppState(),
     middleware: [
       loggerMiddleware,
-      synckerMiddleware,
+      syncMiddleware,
+      retryMiddleware,
     ],
   );
 
