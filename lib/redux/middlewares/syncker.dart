@@ -24,6 +24,7 @@ void synckerMiddleware(
     print('===> Syncing $actions');
 
     firebaseDispatch(actions).then((result) {
+
       print("Done $result");
     }).catchError((err) {
       // TODO: Push to sync retry queue

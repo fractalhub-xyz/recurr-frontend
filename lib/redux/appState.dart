@@ -1,14 +1,15 @@
 import 'package:recurr_fe/models/recurr.dart';
+import 'package:recurr_fe/redux/syncState.dart';
 
 class AppState {
   final List<Recurr> recurrs;
-  final bool connectivity;
+  final SyncState sync;
 
   // curly braces for named parameters
   // need to initial because member is final
   AppState({
     this.recurrs = const [],
-    this.connectivity = false,
+    this.sync = const SyncState(),
   });
 
   /*

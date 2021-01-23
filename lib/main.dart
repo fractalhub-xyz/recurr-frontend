@@ -5,7 +5,7 @@ import 'package:recurr_fe/screens/CheckinView/CheckinView.dart';
 import 'package:recurr_fe/screens/CreateRecurrView/CreateRecurrView.dart';
 import 'package:recurr_fe/screens/Home/HomeView.dart';
 import 'package:recurr_fe/screens/Login/LoginView.dart';
-import 'package:recurr_fe/redux/actions/connectivity_actions.dart';
+import 'package:recurr_fe/redux/actions/sync_actions.dart';
 import 'package:recurr_fe/redux/appState.dart';
 import 'package:recurr_fe/redux/store.dart';
 import 'package:redux/redux.dart';
