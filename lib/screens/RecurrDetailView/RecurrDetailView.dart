@@ -9,7 +9,27 @@ class RecurrDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('hi'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        centerTitle: false,
+        title: Text(
+          recurr.title,
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        actions: [
+          IconButton(
+              icon: Icon(
+                Icons.edit,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                print('implement edit');
+              })
+        ],
       ),
     );
   }
