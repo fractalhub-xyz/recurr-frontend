@@ -48,7 +48,7 @@ class _RecurrListViewState extends State<RecurrListView> {
                   label: 'Your log',
                   iconlabel: 'check in',
                   press: () {
-                    Navigator.pushNamed(context, '/recur/checkin');
+                    Navigator.pushNamed(context, '/recurr/checkin');
                   },
                 ),
                 Calender(),
@@ -57,7 +57,7 @@ class _RecurrListViewState extends State<RecurrListView> {
                   label: 'Today',
                   iconlabel: 'new recur',
                   press: () {
-                    Navigator.pushNamed(context, '/recur/create');
+                    Navigator.pushNamed(context, '/recurr/create');
                   },
                 ),
                 //RecurListContainer
