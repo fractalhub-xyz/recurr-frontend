@@ -17,7 +17,7 @@ class UpdateRecurrAction {
   UpdateRecurrAction({this.id, this.item});
 
   String type() => "UPDATE_RECURR";
-  Map payload() => {"id": id, "item": item};
+  Map payload() => {"id": id, "item": item.toJson()};
 }
 
 class DeleteRecurrAction {

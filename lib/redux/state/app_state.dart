@@ -1,11 +1,16 @@
 import 'package:recurr_fe/models/recurr.dart';
+import 'package:recurr_fe/redux/state/sync_state.dart';
 
 class AppState {
   final List<Recurr> recurrs;
+  final SyncState sync;
 
   // curly braces for named parameters
   // need to initial because member is final
-  AppState({this.recurrs = const []});
+  AppState({
+    this.recurrs = const [],
+    this.sync = const SyncState(),
+  });
 
   /*
     State Persistence

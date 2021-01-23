@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:recurr_fe/LocalNotifications.dart';
-import 'package:recurr_fe/screens/CheckinView/CheckinView.dart';
-import 'package:recurr_fe/screens/CreateRecurrView/CreateRecurrView.dart';
-import 'package:recurr_fe/screens/Home/HomeView.dart';
-import 'package:recurr_fe/screens/Login/LoginView.dart';
-import 'package:recurr_fe/redux/appState.dart';
+import 'package:recurr_fe/app.dart';
+import 'package:recurr_fe/redux/actions/sync_actions.dart';
+import 'package:recurr_fe/redux/state/app_state.dart';
 import 'package:recurr_fe/redux/store.dart';
 import 'package:redux/redux.dart';
 import 'dart:async';
@@ -18,16 +15,27 @@ void main() async {
   runApp(MyApp(store));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   final Store<AppState> store;
 
   MyApp(this.store);
 
   @override
-  _MyAppState createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return new StoreProvider(
+      store: store,
+      child: _AppWithConnection(),
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
+class _AppWithConnection extends StatefulWidget {
+  @override
+  __AppWithConnectionState createState() => __AppWithConnectionState();
+}
+
+// Wraps the main App class with connection checkin logic
+class __AppWithConnectionState extends State<_AppWithConnection> {
   final Connectivity _connectivity = Connectivity();
 
   @override
@@ -36,7 +44,11 @@ class _MyAppState extends State<MyApp> {
     _connectivity.onConnectivityChanged.listen((event) {
       Future<bool> hasConnection = checkConnection();
       print(event.toString());
-      hasConnection.then((value) => print(value));
+      hasConnection.then((bool value) {
+        print("Connectivity updated: $value");
+        StoreProvider.of<AppState>(context)
+            .dispatch(SetConnectivityAction(value));
+      });
     });
   }
 
@@ -58,21 +70,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreProvider(
-        store: widget.store,
-        child: new MaterialApp(
-          title: 'Flutter Login',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          initialRoute: '/login',
-          routes: {
-            '/login': (context) => LoginView(),
-            '/': (context) => HomeView(),
-            '/recur/create': (context) => CreateRecurView(),
-            '/recur/checkin': (context) => CheckinView(),
-            'notification': (context) => NotificationTestPage(),
-          },
-        ));
+    return App();
   }
 }
