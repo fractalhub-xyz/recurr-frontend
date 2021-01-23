@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 // import 'package:recurr_fe/conn.dart';
-import '../sign_in.dart';
+import 'sign_in.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginView extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginViewState createState() => _LoginViewState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

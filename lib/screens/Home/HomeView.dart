@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:recurr_fe/pages/GroupListView.dart';
-import 'package:recurr_fe/pages/RecurrListView.dart';
-import 'package:recurr_fe/pages/UserDetailView.dart';
+import 'package:recurr_fe/screens/GroupListView/GroupListView.dart';
+import 'package:recurr_fe/screens/RecurrListView/RecurrListView.dart';
+import 'package:recurr_fe/screens/UserDetailView/UserDetailView.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeView extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomeViewState createState() => _HomeViewState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeViewState extends State<HomeView> {
   PageController _pageController = PageController(
     initialPage: 1,
   );

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:recurr_fe/pages/CheckinView.dart';
-import 'package:recurr_fe/pages/CreateRecurrView.dart';
 import 'package:recurr_fe/LocalNotifications.dart';
-import 'package:recurr_fe/pages/Home.dart';
-import 'package:recurr_fe/pages/LoginView.dart';
-import 'package:recurr_fe/pages/RecurrListView.dart';
+import 'package:recurr_fe/screens/CheckinView/CheckinView.dart';
+import 'package:recurr_fe/screens/CreateRecurrView/CreateRecurrView.dart';
+import 'package:recurr_fe/screens/Home/HomeView.dart';
+import 'package:recurr_fe/screens/Login/LoginView.dart';
 import 'package:recurr_fe/redux/appState.dart';
 import 'package:recurr_fe/redux/store.dart';
 import 'package:redux/redux.dart';
@@ -68,11 +67,10 @@ class _MyAppState extends State<MyApp> {
           ),
           initialRoute: '/login',
           routes: {
-            '/login': (context) => LoginPage(),
-            '/': (context) => HomeScreen(),
+            '/login': (context) => LoginView(),
+            '/': (context) => HomeView(),
             '/recur/create': (context) => CreateRecurView(),
             '/recur/checkin': (context) => CheckinView(),
-            '/recur/list': (context) => RecurrListView(),
             'notification': (context) => NotificationTestPage(),
           },
         ));

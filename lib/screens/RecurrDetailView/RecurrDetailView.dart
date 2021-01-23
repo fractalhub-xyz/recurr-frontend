@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:recurr_fe/models/recurr.dart';
 
-class RecurDetailView extends StatelessWidget {
-  final dynamic recur;
+class RecurrDetailView extends StatelessWidget {
+  final Recurr recurr;
 
-  RecurDetailView({this.recur});
+  RecurrDetailView({this.recurr});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
