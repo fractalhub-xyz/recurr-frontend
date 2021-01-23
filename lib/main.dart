@@ -38,6 +38,7 @@ class _AppWithConnection extends StatefulWidget {
   __AppWithConnectionState createState() => __AppWithConnectionState();
 }
 
+// Wraps the main App class with connection checkin logic
 class __AppWithConnectionState extends State<_AppWithConnection> {
   final Connectivity _connectivity = Connectivity();
 

@@ -96,7 +96,7 @@ class CreateRecurFormState extends State<CreateRecurForm> {
       var newRecur = Recurr(uuid, title, duration, ts);
       StoreProvider.of<AppState>(context)
           .dispatch(AddRecurrAction(item: newRecur));
-      Navigator.pushNamed(context, '/recur/list');
+      // Navigator.pushNamed(context, '/recur/list');
     } catch (e) {
       showDialog(
         context: context,

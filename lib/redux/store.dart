@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:recurr_fe/redux/appState.dart';
 import 'package:recurr_fe/redux/middlewares/logger.dart';
+import 'package:recurr_fe/redux/middlewares/syncker.dart';
 import 'package:recurr_fe/redux/reducers/root_reducer.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_persist/redux_persist.dart';
@@ -19,7 +20,10 @@ Future<Store<AppState>> getStore() async {
   final store = Store<AppState>(
     rootReducer,
     initialState: initialState ?? AppState(),
-    middleware: [persistor.createMiddleware(), loggerMiddleware],
+    middleware: [
+      loggerMiddleware,
+      synckerMiddleware,
+    ],
   );
 
   return store;
