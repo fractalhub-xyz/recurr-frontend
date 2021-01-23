@@ -21,15 +21,20 @@ class AppState {
       AppState(recurrs: recurrs ?? this.recurrs);
 
   static AppState fromJson(dynamic json) {
+    print("JSON: ${json["recurrs"].runtimeType}");
+
     if (json == null) {
       return AppState();
     } else if (json['recurrs'].length == 0) {
       return AppState();
     }
 
+    List<dynamic> jsonRecurs = json["recurrs"];
+    List<Recurr> recurrs = jsonRecurs.map((recurrJson) => Recurr.fromJson(recurrJson)).toList();
+
     return AppState(
-        recurrs:
-            json["recurrs"]?.map((recurrJson) => Recurr.fromJson(recurrJson)));
+        recurrs: recurrs,
+    );
   }
 
   dynamic toJson() =>

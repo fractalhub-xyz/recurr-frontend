@@ -11,8 +11,8 @@ import 'package:connectivity/connectivity.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   Store<AppState> store = await getStore();
-  // You can request multiple permissions at once.
   runApp(MyApp(store));
 }
 
