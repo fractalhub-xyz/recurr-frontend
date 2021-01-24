@@ -52,44 +52,6 @@ class CreateRecurFormState extends State<CreateRecurForm> {
   final create = FirebaseFunctions.instance.httpsCallable('createRecur');
 
   createRecur(BuildContext context) {
-    // >>>>> Upload to cloud ?
-    // try {
-    //   final HttpsCallableResult result = await create.call(
-    //     <String, dynamic>{
-    //       'title': title,
-    //       'duration': duration,
-    //     },
-    //   );
-    //   print(result.data);
-    //   showDialog(
-    //     context: context,
-    //     builder: (context) => AlertDialog(
-    //       content: Column(
-    //         children: [
-    //           Text('Alert with ID ${result.data['id']} has been created'),
-    //           RaisedButton(
-    //               child: Text('Ok'),
-    //               onPressed: () {
-    //                 Navigator.pop(context);
-    //               }),
-    //         ],
-    //       ),
-    //     ),
-    //   );
-    // } catch (e) {
-    //   showDialog(
-    //     context: context,
-    //     builder: (context) => AlertDialog(
-    //       content: Column(
-    //         children: [
-    //           Text('Error $e has occured'),
-    //         ],
-    //       ),
-    //     ),
-    //   );
-    //   print('caught generic exception');
-    //   print(e);
-    // }
     try {
       String uuid = DateTime.now().toIso8601String();
       String ts = DateTime.now().toIso8601String();

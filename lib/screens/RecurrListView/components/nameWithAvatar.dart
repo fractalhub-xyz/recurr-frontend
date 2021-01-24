@@ -1,11 +1,21 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:recurr_fe/constants.dart';
-import 'package:recurr_fe/screens/Login/sign_in.dart';
 
 class NameWithAvatar extends StatelessWidget {
-  const NameWithAvatar({
-    Key key,
-  }) : super(key: key);
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  String imageUrl, name;
+
+  NameWithAvatar() {
+    var user = _auth.currentUser;
+    name = user.displayName;
+    imageUrl = user.photoURL;
+
+    if (name.contains(" ")) {
+      name = name.substring(0, name.indexOf(" "));
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
