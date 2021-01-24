@@ -55,7 +55,9 @@ class CreateRecurFormState extends State<CreateRecurForm> {
     try {
       String uuid = DateTime.now().toIso8601String();
       String ts = DateTime.now().toIso8601String();
-      var newRecur = Recurr(uuid, title, duration, ts);
+      var newRecur = Recurr(
+          uuid, title, ts, "personal", duration, 20.5, [true, true, false]
+      );
       StoreProvider.of<AppState>(context)
           .dispatch(AddRecurrAction(item: newRecur));
       // Navigator.pushNamed(context, '/recur/list');

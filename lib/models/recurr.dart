@@ -1,16 +1,22 @@
-class Recurr {
-  String id;
-  String title;
-  int duration;
-  String createdAt;
+import 'dart:convert';
 
-  Recurr(this.id, this.title, this.duration, this.createdAt);
+class Recurr {
+  String id, title, createdAt, team;
+  int duration;
+  double weight;
+  List<bool> repeats;
+
+  Recurr(this.id, this.title, this.createdAt, this.team, this.duration,
+      this.weight, this.repeats);
 
   Map toJson() => {
         "id": id,
         "title": title,
         "duration": duration,
         "createdAt": createdAt,
+        "team": team,
+        "weight": weight,
+        "repeats": jsonEncode(repeats)
       };
 
   // Named Constructor (https://dart.dev/guides/language/language-tour#using-constructors)
@@ -19,5 +25,8 @@ class Recurr {
     title = json["title"];
     duration = json["duration"];
     createdAt = json["createdAt"];
+    team = json["team"];
+    weight = json["weight"];
+    repeats = jsonDecode(json["repeats"]);
   }
 }
