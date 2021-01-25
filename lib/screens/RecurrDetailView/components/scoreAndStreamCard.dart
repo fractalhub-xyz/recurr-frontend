@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants.dart';
 
@@ -6,6 +7,16 @@ class ScoreAndStreakCard extends StatelessWidget {
   const ScoreAndStreakCard({
     Key key,
   }) : super(key: key);
+
+  Widget streakIcon() {
+    if (false) {
+      return SvgPicture.asset("assets/icons/fire.svg", height: fs1);
+    } else {
+      return SvgPicture.asset("assets/icons/hourglass.svg", height: fs1 - 2);
+    }
+  }
+
+  final double fs1 = 18;
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +53,10 @@ class ScoreAndStreakCard extends StatelessWidget {
                 children: [
                   Text(
                     '5',
-                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
+                    style:
+                        TextStyle(fontWeight: FontWeight.w800, fontSize: fs1),
                   ),
-                  Icon(
-                    Icons.hourglass_bottom,
-                    size: 18,
-                  )
+                  streakIcon(),
                 ],
               )
             ],

@@ -12,11 +12,11 @@ Future<Store<AppState>> getStore() async {
   Directory appDocDirectory = await getApplicationDocumentsDirectory();
 
   final persistor = Persistor<AppState>(
-    storage: FileStorage(File(appDocDirectory.path + '/store.json')),
-    serializer: JsonSerializer<AppState>(AppState.fromJson),
-    debug: true,
-    shouldSave: (_, dynamic action) => syncableActions.contains(action?.type())
-  );
+      storage: FileStorage(File(appDocDirectory.path + '/store.json')),
+      serializer: JsonSerializer<AppState>(AppState.fromJson),
+      debug: true,
+      shouldSave: (_, dynamic action) =>
+          syncableActions.contains(action?.type()));
 
   final initialState = await persistor.load();
 

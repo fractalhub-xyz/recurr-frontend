@@ -5,7 +5,12 @@ import '../../../constants.dart';
 class RepeatDaysAndGroup extends StatelessWidget {
   const RepeatDaysAndGroup({
     Key key,
+    this.team,
+    this.repeatString,
   }) : super(key: key);
+
+  final String team;
+  final String repeatString;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class RepeatDaysAndGroup extends StatelessWidget {
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
               ),
               Text(
-                'Mon Tue Wed Thur Fri',
+                repeatString,
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
               ),
             ],
@@ -38,7 +43,7 @@ class RepeatDaysAndGroup extends StatelessWidget {
                   ),
                   SizedBox(width: 5),
                   Text(
-                    'Group',
+                    team,
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
                   )
                 ],

@@ -14,10 +14,26 @@ class RecurrDetailView extends StatefulWidget {
   RecurrDetailView({this.recurr});
 
   @override
-  _RecurrDetailViewState createState() => _RecurrDetailViewState();
+  _RecurrDetailViewState createState() => _RecurrDetailViewState(recurr);
 }
 
 class _RecurrDetailViewState extends State<RecurrDetailView> {
+  Recurr recurr;
+  _RecurrDetailViewState(this.recurr);
+
+  String repeatString = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    List<String> days = ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
+    List<bool> boolmap = recurr.repeats;
+    boolmap.asMap().forEach((index, value) => {
+          if (value == true) {repeatString = repeatString + days[index] + " "}
+        });
+  }
+
   String selection = 'weekly';
 
   @override
@@ -61,7 +77,7 @@ class _RecurrDetailViewState extends State<RecurrDetailView> {
             children: [
               SizedBox(height: 20),
               ScoreAndStreakCard(),
-              RepeatDaysAndGroup(),
+              RepeatDaysAndGroup(team: recurr.team, repeatString: repeatString),
               SizedBox(height: 10),
               MomemtumHeader(setSelection: setSelection, selection: selection),
               Momentum(height: height),
