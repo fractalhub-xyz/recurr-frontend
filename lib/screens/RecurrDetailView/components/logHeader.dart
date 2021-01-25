@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../constants.dart';
+
 class LogHeader extends StatelessWidget {
   const LogHeader({
     Key key,
