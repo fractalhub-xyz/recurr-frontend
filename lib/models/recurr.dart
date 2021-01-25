@@ -27,6 +27,6 @@ class Recurr {
     createdAt = json["createdAt"];
     team = json["team"];
     weight = json["weight"];
-    repeats = jsonDecode(json["repeats"]);
+    repeats = jsonDecode(json["repeats"]).cast<bool>().toList();
   }
 }
