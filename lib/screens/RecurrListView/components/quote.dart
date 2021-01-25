@@ -9,14 +9,18 @@ class Quote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //fontsizes
+    final double fs = 18;
+
     return Container(
       padding: EdgeInsets.only(
           left: EdgePadding, right: EdgePadding, top: EdgePadding),
       child: Text(
         'If you cannot do great things do small things in a great way',
         style: TextStyle(
-          fontSize: fs2,
-          fontWeight: FontWeight.w200,
+          fontFamily: 'Poppins',
+          fontSize: fs,
+          fontWeight: FontWeight.w300,
         ),
       ),
     );

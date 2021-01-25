@@ -12,9 +12,9 @@ class DateCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: EdgePadding * 0.6),
-      height: 100,
-      width: 60,
+      margin: EdgeInsets.only(left: EdgePadding * 0.9),
+      height: 60,
+      width: 40,
       decoration: BoxDecoration(
         color: Colors.blueGrey[300],
         borderRadius: BorderRadius.circular(5),

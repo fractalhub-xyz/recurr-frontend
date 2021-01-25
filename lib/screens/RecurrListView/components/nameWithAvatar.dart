@@ -16,9 +16,9 @@ class NameWithAvatar extends StatelessWidget {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
+    final double fs = 14.0;
     return Container(
       padding: EdgeInsets.only(
           left: EdgePadding, right: EdgePadding, top: EdgePadding),
@@ -27,14 +27,17 @@ class NameWithAvatar extends StatelessWidget {
         children: [
           Text(
             'Hello $name!',
-            style: TextStyle(fontSize: fs1),
+            style: TextStyle(
+                fontSize: fs,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w600),
           ),
           Spacer(),
           CircleAvatar(
             backgroundImage: NetworkImage(
               imageUrl,
             ),
-            radius: fs1,
+            radius: fs,
             backgroundColor: Colors.transparent,
           ),
         ],

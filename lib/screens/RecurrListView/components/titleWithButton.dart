@@ -18,6 +18,8 @@ class TitleWithButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double fs1 = 14;
+    final double fs2 = 12;
     return Container(
         padding: EdgeInsets.only(
             left: EdgePadding, right: EdgePadding, top: EdgePadding),
@@ -26,18 +28,23 @@ class TitleWithButton extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                fontSize: fs3,
-                fontWeight: FontWeight.w700,
+                fontSize: fs1,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'Poppins',
               ),
             ),
             Spacer(),
             FlatButton.icon(
-                color: Colors.grey[200],
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                onPressed: press,
-                icon: Icon(icon),
-                label: Text(iconlabel))
+              color: Colors.grey[200],
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0)),
+              onPressed: press,
+              icon: Icon(icon, size: fs2),
+              label: Text(
+                iconlabel,
+                style: TextStyle(fontFamily: 'Poppins', fontSize: fs2),
+              ),
+            )
           ],
         ));
   }

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
-const PrimaryColor = Colors.blue;
+const CardBg = const Color(0xF8F8F8);
 
-const double fs1 = 23.0;
-const double fs2 = 23.0;
-const double fs3 = 19.0;
-
-const double EdgePadding = 20.0;
+const double EdgePadding = 12.0;
+const double borderRadius = 5.0;

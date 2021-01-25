@@ -13,9 +13,14 @@ class RecurrCard extends StatelessWidget {
 
   final Recurr recurr;
 
+  //Colors
   final Color baseColor = Colors.grey[200];
   final Color splashColor = Colors.grey[300];
-  final double borderRadius = 7.0;
+  //FontSizes
+  final double fs1 = 16.0;
+  final double fs2 = 12.0;
+  // final double fs1 = 16.0;
+  // final double fs1 = 16.0;
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +53,9 @@ class RecurrCard extends StatelessWidget {
                     Text(
                       recurr.title,
                       style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Poppins',
+                        fontSize: fs1,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                     SizedBox(width: 20),
@@ -61,7 +67,10 @@ class RecurrCard extends StatelessWidget {
                 SizedBox(height: 5),
                 Row(
                   children: [
-                    Text('Weekdays'),
+                    Text(
+                      'Weekdays',
+                      style: TextStyle(fontSize: fs2, fontFamily: 'Poppins'),
+                    ),
                     Spacer(),
                     Text('0/${recurr.duration}')
                   ],
