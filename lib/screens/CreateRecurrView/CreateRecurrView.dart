@@ -1,38 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_functions/cloud_functions.dart';
+import '../../constants.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:recurr_fe/models/recurr.dart';
 import 'package:recurr_fe/redux/actions/recurr_actions.dart';
 import 'package:recurr_fe/redux/state/app_state.dart';
 
-class CreateRecurView extends StatelessWidget {
+class CreateRecurrView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final appTitle = 'Create new recur';
-
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            title: Text(appTitle),
-            centerTitle: true,
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () => Navigator.of(context).pop(),
           ),
-          body: Container(
-            padding: EdgeInsets.all(15),
-            child: CreateRecurForm(),
-          )),
+          centerTitle: false,
+          title: Text(
+            'Create Recurr',
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: 'Poppins',
+              fontSize: 20,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
+        body: Container(
+          padding: EdgeInsets.symmetric(horizontal: EdgePadding, vertical: 40),
+          child: CreateRecurrForm(),
+        ),
+      ),
     );
   }
 }
 
 // Create a Form widget.
-class CreateRecurForm extends StatefulWidget {
+class CreateRecurrForm extends StatefulWidget {
   @override
-  CreateRecurFormState createState() {
-    return CreateRecurFormState();
+  CreateRecurrFormState createState() {
+    return CreateRecurrFormState();
   }
 }
 
@@ -42,42 +50,47 @@ bool isNumeric(String s) {
 
 // Create a corresponding State class.
 // This class holds data related to the form.
-class CreateRecurFormState extends State<CreateRecurForm> {
+class CreateRecurrFormState extends State<CreateRecurrForm> {
   final _formKey = GlobalKey<FormState>();
-  String title = 'Default';
-  int duration = 10;
-  bool check;
-  double weight = 0;
-
-  final create = FirebaseFunctions.instance.httpsCallable('createRecur');
-
-  createRecur(BuildContext context) {
-    try {
-      String uuid = DateTime.now().toIso8601String();
-      String ts = DateTime.now().toIso8601String();
-      var newRecur = Recurr(uuid, title, ts, "personal", duration, 20.5,
-          [true, true, false, false, true, false, true]);
-      StoreProvider.of<AppState>(context)
-          .dispatch(AddRecurrAction(item: newRecur));
-      // Navigator.pushNamed(context, '/recur/list');
-    } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          content: Column(
-            children: [
-              Text('Error $e has occured'),
-            ],
-          ),
-        ),
-      );
-      print('caught generic exception');
-      print(e);
-    }
-  }
+  String title = 'TITLE';
+  String team = 'PERSONAL';
+  int duration = 7;
+  double weight = 50;
+  bool mon = false;
+  bool tue = false;
+  bool wed = false;
+  bool thr = false;
+  bool fri = false;
+  bool sat = false;
+  bool sun = false;
 
   @override
   Widget build(BuildContext context) {
+    createRecur(BuildContext context) {
+      try {
+        String uuid = DateTime.now().toIso8601String();
+        String ts = DateTime.now().toIso8601String();
+        var newRecur = Recurr(uuid, title, ts, team, duration, weight,
+            [mon, tue, wed, thr, fri, sat, sun]);
+        StoreProvider.of<AppState>(context)
+            .dispatch(AddRecurrAction(item: newRecur));
+        // Navigator.pushNamed(context, '/recur/list');
+      } catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: Column(
+              children: [
+                Text('Error $e has occured'),
+              ],
+            ),
+          ),
+        );
+        print('caught generic exception');
+        print(e);
+      }
+    }
+
     // Build a Form widget using the _formKey created above.
     return Scaffold(
       body: Form(
@@ -85,6 +98,7 @@ class CreateRecurFormState extends State<CreateRecurForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            //RecurName
             TextFormField(
               decoration: const InputDecoration(
                 icon: Icon(Icons.assignment_turned_in_outlined),
@@ -92,7 +106,6 @@ class CreateRecurFormState extends State<CreateRecurForm> {
                 labelText: 'Recur Name',
               ),
               onSaved: (String value) {
-                print('Recur name: $value');
                 setState(() {
                   title = value;
                 });
@@ -104,6 +117,7 @@ class CreateRecurFormState extends State<CreateRecurForm> {
                 return null;
               },
             ),
+            //Duration
             TextFormField(
               decoration: const InputDecoration(
                 icon: Icon(Icons.access_time),
@@ -111,7 +125,6 @@ class CreateRecurFormState extends State<CreateRecurForm> {
                 labelText: 'Recur Duration',
               ),
               onSaved: (String value) {
-                print('Duration: $value');
                 setState(() {
                   duration = int.parse(value);
                 });
@@ -125,33 +138,139 @@ class CreateRecurFormState extends State<CreateRecurForm> {
                 return null;
               },
             ),
-            Center(
-              child: Slider(
-                  value: weight,
-                  min: 0,
-                  max: 100,
-                  divisions: 100,
-                  label: weight.round().toString(),
-                  onChanged: (double value) {
-                    setState(() {
-                      weight = value;
-                    });
-                  }),
-            ),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  // Validate returns true if the form is valid, or false
-                  // otherwise.
-                  if (_formKey.currentState.validate()) {
-                    _formKey.currentState.save();
-                    print('weight $weight');
-                    print('posted');
-                    createRecur(context);
-                  }
-                },
-                child: Text('Submit'),
+            //Weight
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                children: [
+                  Slider(
+                      value: weight,
+                      min: 0,
+                      max: 100,
+                      divisions: 100,
+                      label: weight.round().toString(),
+                      onChanged: (double value) {
+                        setState(() {
+                          weight = value;
+                        });
+                      }),
+                  Text('Weight'),
+                ],
               ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(borderRadius),
+                  color: Colors.grey[200]),
+              padding: EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Text('mon'),
+                          Checkbox(
+                              value: mon,
+                              onChanged: (value) {
+                                setState(() {
+                                  mon = value;
+                                });
+                              })
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text('tue'),
+                          Checkbox(
+                              value: tue,
+                              onChanged: (value) {
+                                setState(() {
+                                  tue = value;
+                                });
+                              })
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text('wed'),
+                          Checkbox(
+                              value: wed,
+                              onChanged: (value) {
+                                setState(() {
+                                  wed = value;
+                                });
+                              })
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text('thr'),
+                          Checkbox(
+                              value: thr,
+                              onChanged: (value) {
+                                setState(() {
+                                  thr = value;
+                                });
+                              })
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text('fri'),
+                          Checkbox(
+                              value: fri,
+                              onChanged: (value) {
+                                setState(() {
+                                  fri = value;
+                                });
+                              })
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text('sat'),
+                          Checkbox(
+                              value: sat,
+                              onChanged: (value) {
+                                setState(() {
+                                  sat = value;
+                                });
+                              })
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text('sun'),
+                          Checkbox(
+                              value: sun,
+                              onChanged: (value) {
+                                setState(() {
+                                  sun = value;
+                                });
+                              })
+                        ],
+                      ),
+                    ],
+                  ),
+                  Text('Repeat on')
+                ],
+              ),
+            ),
+            IconButton(
+              icon: Icon(Icons.keyboard_arrow_right),
+              onPressed: () {
+                // Validate returns true if the form is valid, or false
+                // otherwise.
+
+                if (_formKey.currentState.validate()) {
+                  _formKey.currentState.save();
+
+                  print('Next');
+                  createRecur(context);
+                }
+              },
             ),
           ],
         ),

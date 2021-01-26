@@ -25,7 +25,7 @@ class App extends StatelessWidget {
       routes: {
         '/login': (context) => LoginView(),
         '/': (context) => HomeView(),
-        '/recurr/create': (context) => CreateRecurView(),
+        '/recurr/create': (context) => CreateRecurrView(),
         '/recurr/checkin': (context) => CheckinView(),
         'notification': (context) => NotificationTestPage(),
       },

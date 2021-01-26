@@ -57,6 +57,14 @@ class _CheckinViewState extends State<CheckinView> {
                         recurr: Recurr('id', 'title', '12.213.12', 'team', 12,
                             1.2, [true, false, true, false, true, true, true]),
                         checkall: checkall),
+                    CheckinCard(
+                        recurr: Recurr('id', 'title', '12.213.12', 'team', 12,
+                            1.2, [true, false, true, false, true, true, true]),
+                        checkall: checkall),
+                    CheckinCard(
+                        recurr: Recurr('id', 'title', '12.213.12', 'team', 12,
+                            1.2, [true, false, true, false, true, true, true]),
+                        checkall: checkall),
                   ],
                 ),
               ),

@@ -34,7 +34,7 @@ class DateAndCheckallBtn extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: EdgePadding),
             child: Text(
-              '${now.day} ${months[now.month]}, ${now.year}',
+              '${now.day} ${months[now.month - 1]}, ${now.year}',
               style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 16,

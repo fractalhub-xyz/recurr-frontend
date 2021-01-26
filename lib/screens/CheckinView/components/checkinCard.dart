@@ -35,11 +35,18 @@ class _CheckinCardState extends State<CheckinCard> {
         });
   }
 
-  final Color baseColor = Colors.grey[200];
-  final Color splashColor = Colors.grey[300];
+  Color baseColor = Colors.grey[200];
 
   final double fs1 = 16.0;
   final double fs2 = 12.0;
+
+  setbg() {
+    if (checked) {
+      baseColor = Colors.blueGrey[100];
+    } else {
+      baseColor = Colors.grey[200];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +54,7 @@ class _CheckinCardState extends State<CheckinCard> {
       onTap: () {
         setState(() {
           checked = !checked;
+          setbg();
         });
       },
       child: Container(
@@ -126,6 +134,7 @@ class _CheckinCardState extends State<CheckinCard> {
                   onChanged: (value) {
                     setState(() {
                       checked = value;
+                      setbg();
                     });
                   })
             ],
