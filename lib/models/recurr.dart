@@ -1,13 +1,17 @@
 import 'dart:convert';
 
+import 'package:recurr_fe/models/checkin.dart';
+
 class Recurr {
   String id, title, createdAt, team;
   int duration;
   double weight;
   List<bool> repeats;
+  List<Checkin> checkins = [];
 
   Recurr(this.id, this.title, this.createdAt, this.team, this.duration,
       this.weight, this.repeats);
+
 
   Map toJson() => {
         "id": id,
@@ -16,7 +20,8 @@ class Recurr {
         "createdAt": createdAt,
         "team": team,
         "weight": weight,
-        "repeats": jsonEncode(repeats)
+        "repeats": jsonEncode(repeats),
+        "checkins": checkins.map((c) => c.toJson()).toList(),
       };
 
   // Named Constructor (https://dart.dev/guides/language/language-tour#using-constructors)
@@ -28,6 +33,9 @@ class Recurr {
     team = json["team"];
     weight = json["weight"];
     repeats = jsonDecode(json["repeats"]).cast<bool>().toList();
+    if (json["checkins"] != null) {
+      checkins = json["checkins"].map((check) => Checkin.fromJson(check)).toList();
+    }
   }
 
   // Methods
