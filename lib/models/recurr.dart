@@ -30,6 +30,7 @@ class Recurr {
     repeats = jsonDecode(json["repeats"]).cast<bool>().toList();
   }
 
+  // Methods
   String getRepeatString() {
     bool isEveryday = repeats.every((day) => day);
     if (isEveryday) {
@@ -43,5 +44,15 @@ class Recurr {
     });
 
     return days.join(" ");
+  }
+
+  static List<Recurr> getTodaysRecurs(List<Recurr> recurrs) {
+    int weekday = DateTime.now().weekday;
+    return recurrs.where((rcr) => rcr.repeats[weekday]).toList();
+  }
+
+  static List<Recurr> getOtherRecurrs(List<Recurr> recurrs) {
+    int weekday = DateTime.now().weekday;
+    return recurrs.where((rcr) => !rcr.repeats[weekday]).toList();
   }
 }

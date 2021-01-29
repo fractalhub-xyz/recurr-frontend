@@ -64,11 +64,20 @@ class _RecurrListViewState extends State<RecurrListView> {
                 Container(
                   padding: EdgeInsets.only(top: EdgePadding * 0.3),
                   child: Column(
-                    children: recurrs
+                    children: Recurr.getTodaysRecurs(recurrs)
                         .map((recurr) => RecurrCard(recurr: recurr))
                         .toList(),
                   ),
-                )
+                ),
+                Text('Others', textAlign: TextAlign.left),
+                Container(
+                  padding: EdgeInsets.only(top: EdgePadding * 0.3),
+                  child: Column(
+                    children: Recurr.getOtherRecurrs(recurrs)
+                        .map((recurr) => RecurrCard(recurr: recurr))
+                        .toList(),
+                  ),
+                ),
               ],
             ),
           )),
