@@ -26,17 +26,6 @@ class _RecurrDetailViewState extends State<RecurrDetailView> {
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
-    List<String> days = ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
-    List<bool> boolmap = recurr.repeats;
-    boolmap.asMap().forEach((index, value) => {
-          if (value == true) {repeatString = repeatString + days[index] + " "}
-        });
-
-    var isEveryday = boolmap.every((day) => day);
-    if (isEveryday) {
-      repeatString = "everyday";
-    }
   }
 
   String selection = 'weekly';
@@ -82,7 +71,7 @@ class _RecurrDetailViewState extends State<RecurrDetailView> {
             children: [
               SizedBox(height: 20),
               ScoreAndStreakCard(),
-              RepeatDaysAndGroup(team: recurr.team, repeatString: repeatString),
+              RepeatDaysAndGroup(team: recurr.team, repeatString: recurr.getRepeatString()),
               SizedBox(height: 10),
               MomemtumHeader(setSelection: setSelection, selection: selection),
               Momentum(height: height),

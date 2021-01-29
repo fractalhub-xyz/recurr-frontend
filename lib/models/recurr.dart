@@ -29,4 +29,19 @@ class Recurr {
     weight = json["weight"];
     repeats = jsonDecode(json["repeats"]).cast<bool>().toList();
   }
+
+  String getRepeatString() {
+    bool isEveryday = repeats.every((day) => day);
+    if (isEveryday) {
+      return "Everyday";
+    }
+
+    List<String> days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+    days.removeWhere((day) {
+      int idx = days.indexOf(day);
+      return !repeats[idx];
+    });
+
+    return days.join(" ");
+  }
 }

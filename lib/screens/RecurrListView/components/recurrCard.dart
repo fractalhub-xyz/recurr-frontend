@@ -21,19 +21,10 @@ class _RecurrCardState extends State<RecurrCard> {
   Recurr recurr;
   _RecurrCardState(this.recurr);
   String repeatString = '';
+  // TODO: Remove state if unnecessary
   @override
   void initState() {
     super.initState();
-    // TODO: move this to recur class
-    List<String> days = ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
-    List<bool> boolmap = recurr.repeats;
-    boolmap.asMap().forEach((index, value) => {
-          if (value == true) {repeatString = repeatString + days[index] + " "}
-        });
-    var isEveryday = boolmap.every((day) => day);
-    if (isEveryday) {
-      repeatString = "everyday";
-    }
   }
 
   final Color baseColor = Colors.grey[200];
@@ -116,7 +107,7 @@ class _RecurrCardState extends State<RecurrCard> {
                   children: [
                     //Repeat Days
                     Text(
-                      repeatString,
+                      widget.recurr.getRepeatString(),
                       style: TextStyle(fontSize: fs2, fontFamily: 'Poppins'),
                     ),
                     Spacer(),
