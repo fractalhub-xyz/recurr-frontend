@@ -23,13 +23,17 @@ class _RecurrCardState extends State<RecurrCard> {
   String repeatString = '';
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    // TODO: move this to recur class
     List<String> days = ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
     List<bool> boolmap = recurr.repeats;
     boolmap.asMap().forEach((index, value) => {
           if (value == true) {repeatString = repeatString + days[index] + " "}
         });
+    var isEveryday = boolmap.every((day) => day);
+    if (isEveryday) {
+      repeatString = "everyday";
+    }
   }
 
   final Color baseColor = Colors.grey[200];

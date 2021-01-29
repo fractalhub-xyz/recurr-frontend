@@ -32,6 +32,11 @@ class _RecurrDetailViewState extends State<RecurrDetailView> {
     boolmap.asMap().forEach((index, value) => {
           if (value == true) {repeatString = repeatString + days[index] + " "}
         });
+
+    var isEveryday = boolmap.every((day) => day);
+    if (isEveryday) {
+      repeatString = "everyday";
+    }
   }
 
   String selection = 'weekly';
