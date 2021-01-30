@@ -28,3 +28,12 @@ class DeleteRecurrAction {
   String type() => "DELETE_RECURR";
   Map payload() => {"id": id};
 }
+
+class CheckInAction {
+  final List<String> recurIds;
+
+  CheckInAction({ this.recurIds });
+
+  String type() => "CHECKIN_RECUR";
+  Map payload() => {"recur_ids": recurIds.join(" ")};
+}

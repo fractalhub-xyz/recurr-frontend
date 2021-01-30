@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:recurr_fe/models/checkin.dart';
+import 'package:recurr_fe/utils/helpers.dart';
 
 class Recurr {
   String id, title, createdAt, team;
@@ -68,5 +69,18 @@ class Recurr {
   static List<Recurr> getOtherRecurrs(List<Recurr> recurrs) {
     int weekday = DateTime.now().weekday - 1;
     return recurrs.where((rcr) => !rcr.repeats[weekday]).toList();
+  }
+
+  bool isCheckedInToday() {
+    if (checkins.length == 0) {
+      return false;
+    }
+
+    Checkin lastCheckin = checkins[0];
+    return DateUtils.isToday(lastCheckin.timestamp);
+  }
+
+  static List<Recurr> getRecurrsToCheckIn(List<Recurr> recurrs) {
+    return recurrs.where((rcr) => !rcr.isCheckedInToday());
   }
 }
