@@ -35,7 +35,7 @@ class _NotificationTestPageState extends State<NotificationTestPage> {
         importance: Importance.Max);
     var iosDetails = IOSNotificationDetails();
     var notificationDetails = NotificationDetails(androidDetails, iosDetails);
-
+    // fltrNotification.showDailyAtTime(id, title, body, notificationTime, notificationDetails);
     await fltrNotification.show(0, "title", "body", notificationDetails);
   }
 

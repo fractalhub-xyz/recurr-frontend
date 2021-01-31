@@ -91,7 +91,16 @@ class Recurr {
 
   static List<Recurr> getTodaysRecurrs(List<Recurr> recurrs) {
     int weekday = DateTime.now().weekday - 1;
-    return recurrs.where((rcr) => rcr.repeats[weekday]).toList();
+    List<Recurr> todaysRecurrs =
+        recurrs.where((rcr) => rcr.repeats[weekday]).toList();
+    todaysRecurrs.sort((Recurr a, Recurr b) {
+      if (a.isCheckedInToday()) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    return todaysRecurrs;
   }
 
   static List<Recurr> getRecurrsByDate(List<Recurr> recurrs, DateTime date) {
@@ -110,6 +119,23 @@ class Recurr {
 
     Checkin lastCheckin = checkins[0];
     return DateUtils.isToday(lastCheckin.timestamp);
+  }
+
+  bool isCheckedOnDate(date) {
+    if (checkins.length == 0) {
+      return false;
+    }
+
+    int i = 0;
+    while (i < checkins.length) {
+      var checkinTimeStamp = checkins[i].timestamp;
+      if (DateUtils.isSameDate(date, checkinTimeStamp)) {
+        return true;
+      } else {
+        i++;
+      }
+    }
+    return false;
   }
 
   static List<Recurr> getRecurrsToCheckIn(List<Recurr> recurrs) {

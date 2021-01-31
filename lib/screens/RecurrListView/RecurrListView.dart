@@ -54,7 +54,7 @@ class _RecurrListViewState extends State<RecurrListView> {
                 Calender(setDate: setDate, selectedDate: selectedDate),
 
                 //RecurListContainer
-                getListContainer(selectedDate, recurrs, context)
+                getListContainer(selectedDate, recurrs, context, selectedDate)
               ],
             ),
           )),
@@ -64,7 +64,7 @@ class _RecurrListViewState extends State<RecurrListView> {
   }
 }
 
-Widget getListContainer(date, recurrs, context) {
+Widget getListContainer(date, recurrs, context, selectedDate) {
   final List<String> months = [
     'January',
     'February',
@@ -94,7 +94,8 @@ Widget getListContainer(date, recurrs, context) {
           padding: EdgeInsets.only(top: EdgePadding * 0.3),
           child: Column(
             children: Recurr.getTodaysRecurrs(recurrs)
-                .map((recurr) => RecurrCard(recurr: recurr))
+                .map((recurr) =>
+                    RecurrCard(recurr: recurr, selectedDate: selectedDate))
                 .toList(),
           ),
         ),
@@ -124,7 +125,8 @@ Widget getListContainer(date, recurrs, context) {
           padding: EdgeInsets.only(top: EdgePadding * 0.3),
           child: Column(
             children: Recurr.getRecurrsByDate(recurrs, date)
-                .map((recurr) => RecurrCard(recurr: recurr))
+                .map((recurr) =>
+                    RecurrCard(recurr: recurr, selectedDate: selectedDate))
                 .toList(),
           ),
         ),

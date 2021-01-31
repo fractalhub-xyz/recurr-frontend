@@ -9,9 +9,11 @@ class RecurrCard extends StatefulWidget {
   RecurrCard({
     Key key,
     this.recurr,
+    this.selectedDate,
   }) : super(key: key);
 
   final Recurr recurr;
+  final DateTime selectedDate;
 
   @override
   _RecurrCardState createState() => _RecurrCardState(recurr);
@@ -72,7 +74,7 @@ class _RecurrCardState extends State<RecurrCard> {
                         fontFamily: 'Poppins',
                         fontSize: fs1,
                         fontWeight: FontWeight.w500,
-                        decoration: recurr.isCheckedInToday()
+                        decoration: recurr.isCheckedOnDate(widget.selectedDate)
                             ? TextDecoration.lineThrough
                             : TextDecoration.none,
                       ),
