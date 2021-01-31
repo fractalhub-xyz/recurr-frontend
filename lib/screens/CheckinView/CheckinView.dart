@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:recurr_fe/models/recurr.dart';
+import 'package:recurr_fe/redux/actions/recurr_actions.dart';
 import 'package:recurr_fe/redux/state/app_state.dart';
 import 'package:recurr_fe/screens/CheckinView/components/checkinCard.dart';
 import 'package:slide_to_confirm/slide_to_confirm.dart';
 
 import '../../constants.dart';
 import 'components/dateAndCheckAllBtn.dart';
+
+typedef void CheckinCallback(String recurID, bool isChecked);
 
 class CheckinView extends StatefulWidget {
   @override
@@ -15,18 +18,37 @@ class CheckinView extends StatefulWidget {
 
 class _CheckinViewState extends State<CheckinView> {
   bool checkall = false;
+  Set<String> selectedRecurs = {};
+
+  void onCheckRecur(String recurID, bool isChecked) {
+    if (isChecked) {
+      selectedRecurs.add(recurID);
+    } else {
+      selectedRecurs.remove(recurID);
+    }
+    print(selectedRecurs);
+  }
+
+  void onSwipeConfirmed() {
+    print("Selected Recurs for checkin: $selectedRecurs");
+    if (selectedRecurs.length == 0) {
+      print("no recurs selected to check in");
+      return;
+    }
+
+    StoreProvider.of<AppState>(context).dispatch(CheckInAction(
+      recurIds: selectedRecurs.toList(),
+    ));
+  }
+
+  void onCheckAll(value) {
+    setState(() {
+      checkall = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    void confirmed() {
-      print('Slider confirmed!');
-    }
-
-    setCheckAll(value) {
-      setState(() {
-        checkall = value;
-      });
-    }
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -51,14 +73,18 @@ class _CheckinViewState extends State<CheckinView> {
           child: Column(
             children: [
               SizedBox(height: 20),
-              DateAndCheckallBtn(checkall: checkall, setCheckAll: setCheckAll),
+              DateAndCheckallBtn(checkall: checkall, setCheckAll: onCheckAll),
               // Recur Container
-              CheckinRecurContainer(checkall: checkall),
+              CheckinRecurContainer(
+                checkall: checkall,
+                onCheckRecur: onCheckRecur,
+              ),
               Container(
                 width: double.infinity,
                 padding: EdgeInsets.all(40),
                 child: ConfirmationSlider(
-                  onConfirmation: () => confirmed(),
+                  text: "Slide to checkin",
+                  onConfirmation: onSwipeConfirmed,
                 ),
               ),
             ],
@@ -73,9 +99,11 @@ class CheckinRecurContainer extends StatelessWidget {
   const CheckinRecurContainer({
     Key key,
     @required this.checkall,
+    @required this.onCheckRecur,
   }) : super(key: key);
 
   final bool checkall;
+  final CheckinCallback onCheckRecur;
 
   @override
   Widget build(BuildContext context) {
@@ -84,10 +112,11 @@ class CheckinRecurContainer extends StatelessWidget {
         builder: (BuildContext context, recurrs) {
           return Container(
             child: Column(
-              children: Recurr.getTodaysRecurrs(recurrs)
+              children: Recurr.getRecurrsToCheckIn(recurrs)
                   .map((recurr) => CheckinCard(
                         recurr: recurr,
                         checkall: checkall,
+                        onCheckRecur: onCheckRecur,
                       ))
                   .toList(),
             ),

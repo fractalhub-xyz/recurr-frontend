@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recurr_fe/models/recurr.dart';
+import 'package:recurr_fe/screens/CheckinView/CheckinView.dart';
 
 import '../../../constants.dart';
 
@@ -9,35 +10,35 @@ class CheckinCard extends StatefulWidget {
     Key key,
     this.recurr,
     this.checkall,
+    this.onCheckRecur,
   }) : super(key: key);
 
   final Recurr recurr;
   final bool checkall;
+  final CheckinCallback onCheckRecur;
 
   @override
-  _CheckinCardState createState() => _CheckinCardState(recurr);
+  _CheckinCardState createState() => _CheckinCardState();
 }
 
 class _CheckinCardState extends State<CheckinCard> {
-  Recurr recurr;
-  _CheckinCardState(this.recurr);
+  _CheckinCardState();
+
   String repeatString = '';
   bool checked = false;
+  Recurr recurr;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    List<String> days = ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
-    List<bool> boolmap = recurr.repeats;
-    boolmap.asMap().forEach((index, value) => {
-          if (value == true) {repeatString = repeatString + days[index] + " "}
-        });
+    recurr = widget.recurr;
   }
 
   Color baseColor = Colors.grey[200];
 
   final double fs1 = 16.0;
   final double fs2 = 12.0;
+
 
   setbg() {
     if (checked) {
@@ -47,14 +48,19 @@ class _CheckinCardState extends State<CheckinCard> {
     }
   }
 
+  void onCheck(bool isChecked) {
+    setState(() {
+      checked = isChecked;
+      setbg();
+      widget.onCheckRecur(recurr.id, isChecked);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        setState(() {
-          checked = !checked;
-          setbg();
-        });
+        onCheck(!checked);
       },
       child: Container(
         margin: EdgeInsets.symmetric(
@@ -131,10 +137,7 @@ class _CheckinCardState extends State<CheckinCard> {
               Checkbox(
                   value: widget.checkall || checked,
                   onChanged: (value) {
-                    setState(() {
-                      checked = value;
-                      setbg();
-                    });
+                    onCheck(value);
                   })
             ],
           ),

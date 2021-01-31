@@ -19,8 +19,11 @@ class RecurrCard extends StatefulWidget {
 
 class _RecurrCardState extends State<RecurrCard> {
   Recurr recurr;
+
   _RecurrCardState(this.recurr);
+
   String repeatString = '';
+
   // TODO: Remove state if unnecessary
   @override
   void initState() {
@@ -69,6 +72,9 @@ class _RecurrCardState extends State<RecurrCard> {
                         fontFamily: 'Poppins',
                         fontSize: fs1,
                         fontWeight: FontWeight.w500,
+                        decoration: recurr.isCheckedInToday()
+                            ? TextDecoration.lineThrough
+                            : TextDecoration.none,
                       ),
                     ),
                     SizedBox(width: 5),

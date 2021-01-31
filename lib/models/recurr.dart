@@ -81,6 +81,7 @@ class Recurr {
   }
 
   static List<Recurr> getRecurrsToCheckIn(List<Recurr> recurrs) {
-    return recurrs.where((rcr) => !rcr.isCheckedInToday());
+    var todaysRecurs = Recurr.getTodaysRecurrs(recurrs);
+    return todaysRecurs.where((rcr) => !rcr.isCheckedInToday()).toList();
   }
 }
