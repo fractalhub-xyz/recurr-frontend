@@ -109,32 +109,21 @@ class CheckinRecurContainer extends StatelessWidget {
         converter: (store) => store.state.recurrs,
         builder: (BuildContext context, recurrs) {
           return Container(
-            height:
-                Recurr.getRecurrsToCheckIn(recurrs).length.roundToDouble() * 85,
-            width: MediaQuery.of(context).size.width,
-            child: ListView.builder(
-              itemCount: Recurr.getRecurrsToCheckIn(recurrs).length,
-              itemBuilder: (context, index) {
-                return CheckinCard(
-                  recurr: Recurr.getRecurrsToCheckIn(recurrs)[index],
-                  checkall: checkall,
-                  onCheckRecur: onCheckRecur,
-                );
-              },
-            ),
+            child: getListContainer(recurrs),
           );
         });
   }
-}
 
-// Container(
-//             child: Column(
-//               children: Recurr.getRecurrsToCheckIn(recurrs)
-//                   .map((recurr) => CheckinCard(
-//                         recurr: recurr,
-//                         checkall: checkall,
-//                         onCheckRecur: onCheckRecur,
-//                       ))
-//                   .toList(),
-//             ),
-//           );
+  Widget getListContainer(List<Recurr> recurrs) {
+    return Column(
+      key: Key(recurrs.length.toString()),
+      children: recurrs
+          .map((recurr) => CheckinCard(
+                recurr: recurr,
+                checkall: checkall,
+                onCheckRecur: onCheckRecur,
+              ))
+          .toList(),
+    );
+  }
+}

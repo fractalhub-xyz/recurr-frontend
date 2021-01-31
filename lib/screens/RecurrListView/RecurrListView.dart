@@ -15,7 +15,6 @@ class RecurrListView extends StatefulWidget {
 }
 
 class _RecurrListViewState extends State<RecurrListView> {
-  List<Recurr> recurrs;
   DateTime selectedDate;
 
   setDate(value) {
@@ -54,7 +53,7 @@ class _RecurrListViewState extends State<RecurrListView> {
                 Calender(setDate: setDate, selectedDate: selectedDate),
 
                 //RecurListContainer
-                getListContainer(selectedDate, recurrs, context, selectedDate)
+                getListContainer(recurrs)
               ],
             ),
           )),
@@ -62,86 +61,95 @@ class _RecurrListViewState extends State<RecurrListView> {
       },
     );
   }
-}
 
-Widget getListContainer(date, recurrs, context, selectedDate) {
-  final List<String> months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December	',
-  ];
-  if (DateTime.now().day == date.day) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TitleWithButton(
-          icon: Icons.add,
-          label: 'Today',
-          iconlabel: 'new recur',
-          press: () {
-            Navigator.pushNamed(context, '/recurr/create');
-          },
-        ),
-        Container(
-          padding: EdgeInsets.only(top: EdgePadding * 0.3),
-          child: Column(
-            children: Recurr.getTodaysRecurrs(recurrs)
-                .map((recurr) =>
-                    RecurrCard(recurr: recurr, selectedDate: selectedDate))
-                .toList(),
+  Widget getListContainer(List<Recurr> recurrs) {
+    final List<String> months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December	',
+    ];
+    if (DateTime.now().day == selectedDate.day) {
+      var todaysRecurrs = Recurr.getTodaysRecurrs(recurrs);
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TitleWithButton(
+            icon: Icons.add,
+            label: 'Today',
+            iconlabel: 'new recur',
+            press: () {
+              Navigator.pushNamed(context, '/recurr/create');
+            },
           ),
-        ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: EdgePadding, vertical: 10),
-          child: Text(
-            'Others',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              fontFamily: 'Poppins',
+          Container(
+              padding: EdgeInsets.only(top: EdgePadding * 0.3),
+              // Only this needs list view cause only this changes order
+              child: ListView.builder(
+                itemCount: todaysRecurrs.length,
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                key: Key(todaysRecurrs.length.toString()),
+                itemBuilder: (BuildContext context, int index) {
+                  return RecurrCard(
+                    recurr: todaysRecurrs[index],
+                    selectedDate: selectedDate,
+                  );
+                },
+              )),
+          Container(
+            padding:
+                EdgeInsets.symmetric(horizontal: EdgePadding, vertical: 10),
+            child: Text(
+              'Others',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'Poppins',
+              ),
             ),
           ),
-        ),
-        Container(
-          padding: EdgeInsets.only(top: EdgePadding * 0.3),
-          child: Column(
-            children: Recurr.getOtherRecurrs(recurrs)
-                .map((recurr) => RecurrCard(recurr: recurr))
-                .toList(),
+          Container(
+            padding: EdgeInsets.only(top: EdgePadding * 0.3),
+            child: Column(
+              children: Recurr.getOtherRecurrs(recurrs)
+                  .map((recurr) => RecurrCard(recurr: recurr))
+                  .toList(),
+            ),
           ),
-        ),
-      ],
-    );
-  } else {
-    return Column(
-      children: [
-        TitleWithButton(
-          icon: Icons.add,
-          label: 'Viewing ${date.day} ${months[date.month - 1]}',
-          iconlabel: 'new recur',
-          press: () {
-            Navigator.pushNamed(context, '/recurr/create');
-          },
-        ),
-        Container(
-          padding: EdgeInsets.only(top: EdgePadding * 0.3),
-          child: Column(
-            children: Recurr.getRecurrsByDate(recurrs, date)
-                .map((recurr) =>
-                    RecurrCard(recurr: recurr, selectedDate: selectedDate))
-                .toList(),
+        ],
+      );
+    } else {
+      return Column(
+        children: [
+          TitleWithButton(
+            icon: Icons.add,
+            label:
+                'Viewing ${selectedDate.day} ${months[selectedDate.month - 1]}',
+            iconlabel: 'new recur',
+            press: () {
+              Navigator.pushNamed(context, '/recurr/create');
+            },
           ),
-        ),
-      ],
-    );
+          Container(
+            padding: EdgeInsets.only(top: EdgePadding * 0.3),
+            child: Column(
+              children: Recurr.getRecurrsByDate(recurrs, selectedDate)
+                  .map((recurr) =>
+                      RecurrCard(recurr: recurr, selectedDate: selectedDate))
+                  .toList(),
+            ),
+          ),
+        ],
+      );
+    }
   }
 }
