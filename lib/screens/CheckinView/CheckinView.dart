@@ -30,7 +30,6 @@ class _CheckinViewState extends State<CheckinView> {
   }
 
   void onSwipeConfirmed() {
-    print("Selected Recurs for checkin: $selectedRecurs");
     if (selectedRecurs.length == 0) {
       print("no recurs selected to check in");
       return;
@@ -121,7 +120,6 @@ class CheckinRecurContainer extends StatelessWidget {
                   .toList(),
             ),
           );
-          ;
         });
   }
 }

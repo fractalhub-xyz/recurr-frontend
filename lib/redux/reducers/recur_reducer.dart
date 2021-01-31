@@ -39,5 +39,6 @@ List<Recurr> _checkInRecur(List<Recurr> recurrs, CheckInAction action) {
         rcr.checkins.add(currentCheckin);
       }
     }
+    return rcr;
   }).toList();
 }
