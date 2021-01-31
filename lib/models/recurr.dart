@@ -12,7 +12,6 @@ class Recurr {
   Recurr(this.id, this.title, this.createdAt, this.team, this.duration,
       this.weight, this.repeats);
 
-
   Map toJson() => {
         "id": id,
         "title": title,
@@ -34,7 +33,10 @@ class Recurr {
     weight = json["weight"];
     repeats = jsonDecode(json["repeats"]).cast<bool>().toList();
     if (json["checkins"] != null) {
-      checkins = json["checkins"].map((check) => Checkin.fromJson(check)).toList();
+      checkins = json["checkins"]
+          .map((check) => Checkin.fromJson(check))
+          .cast<Checkin>()
+          .toList();
     }
   }
 
@@ -45,7 +47,7 @@ class Recurr {
       return "Everyday";
     }
 
-    List<String> days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+    List<String> days = ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
     days.removeWhere((day) {
       int idx = days.indexOf(day);
       return !repeats[idx];
@@ -54,13 +56,17 @@ class Recurr {
     return days.join(" ");
   }
 
-  static List<Recurr> getTodaysRecurs(List<Recurr> recurrs) {
-    int weekday = DateTime.now().weekday;
+  static List<Recurr> getTodaysRecurrs(List<Recurr> recurrs) {
+    int weekday = DateTime.now().weekday - 1;
     return recurrs.where((rcr) => rcr.repeats[weekday]).toList();
   }
 
+  static List<Recurr> getRecurrsByDate(List<Recurr> recurrs, DateTime date) {
+    return recurrs.where((rcr) => rcr.repeats[date.weekday - 1]).toList();
+  }
+
   static List<Recurr> getOtherRecurrs(List<Recurr> recurrs) {
-    int weekday = DateTime.now().weekday;
+    int weekday = DateTime.now().weekday - 1;
     return recurrs.where((rcr) => !rcr.repeats[weekday]).toList();
   }
 }

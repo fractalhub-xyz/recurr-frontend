@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:recurr_fe/constants.dart';
 import 'package:recurr_fe/models/recurr.dart';
@@ -15,20 +14,21 @@ class RecurrListView extends StatefulWidget {
   _RecurrListViewState createState() => _RecurrListViewState();
 }
 
-Future<List> getRecurs() async {
-  HttpsCallable callable =
-      FirebaseFunctions.instance.httpsCallable('getAllRecurs');
-  final results = await callable();
-  return results.data['data'];
-}
-
 class _RecurrListViewState extends State<RecurrListView> {
-  Future<List> recurrs;
+  List<Recurr> recurrs;
+  DateTime selectedDate;
+
+  setDate(value) {
+    setState(() {
+      selectedDate = value;
+    });
+  }
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    recurrs = getRecurs();
+    selectedDate = DateTime.now();
   }
 
   @override
@@ -51,38 +51,84 @@ class _RecurrListViewState extends State<RecurrListView> {
                     Navigator.pushNamed(context, '/recurr/checkin');
                   },
                 ),
-                Calender(),
-                TitleWithButton(
-                  icon: Icons.add,
-                  label: 'Today',
-                  iconlabel: 'new recur',
-                  press: () {
-                    Navigator.pushNamed(context, '/recurr/create');
-                  },
-                ),
+                Calender(setDate: setDate, selectedDate: selectedDate),
+
                 //RecurListContainer
-                Container(
-                  padding: EdgeInsets.only(top: EdgePadding * 0.3),
-                  child: Column(
-                    children: Recurr.getTodaysRecurs(recurrs)
-                        .map((recurr) => RecurrCard(recurr: recurr))
-                        .toList(),
-                  ),
-                ),
-                Text('Others', textAlign: TextAlign.left),
-                Container(
-                  padding: EdgeInsets.only(top: EdgePadding * 0.3),
-                  child: Column(
-                    children: Recurr.getOtherRecurrs(recurrs)
-                        .map((recurr) => RecurrCard(recurr: recurr))
-                        .toList(),
-                  ),
-                ),
+                getListContainer(selectedDate, recurrs, context)
               ],
             ),
           )),
         );
       },
+    );
+  }
+}
+
+Widget getListContainer(date, recurrs, context) {
+  final List<String> months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December	',
+  ];
+  if (DateTime.now().day == date.day) {
+    return Column(
+      children: [
+        TitleWithButton(
+          icon: Icons.add,
+          label: 'Today',
+          iconlabel: 'new recur',
+          press: () {
+            Navigator.pushNamed(context, '/recurr/create');
+          },
+        ),
+        Container(
+          padding: EdgeInsets.only(top: EdgePadding * 0.3),
+          child: Column(
+            children: Recurr.getTodaysRecurrs(recurrs)
+                .map((recurr) => RecurrCard(recurr: recurr))
+                .toList(),
+          ),
+        ),
+        Text('Others', textAlign: TextAlign.left),
+        Container(
+          padding: EdgeInsets.only(top: EdgePadding * 0.3),
+          child: Column(
+            children: Recurr.getOtherRecurrs(recurrs)
+                .map((recurr) => RecurrCard(recurr: recurr))
+                .toList(),
+          ),
+        ),
+      ],
+    );
+  } else {
+    return Column(
+      children: [
+        TitleWithButton(
+          icon: Icons.add,
+          label: 'Viewing ${date.day} ${months[date.month - 1]}',
+          iconlabel: 'new recur',
+          press: () {
+            Navigator.pushNamed(context, '/recurr/create');
+          },
+        ),
+        Container(
+          padding: EdgeInsets.only(top: EdgePadding * 0.3),
+          child: Column(
+            children: Recurr.getRecurrsByDate(recurrs, date)
+                .map((recurr) => RecurrCard(recurr: recurr))
+                .toList(),
+          ),
+        ),
+      ],
     );
   }
 }

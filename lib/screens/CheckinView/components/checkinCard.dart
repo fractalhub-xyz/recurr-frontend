@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recurr_fe/models/recurr.dart';
-import 'package:recurr_fe/screens/RecurrDetailView/RecurrDetailView.dart';
 
 import '../../../constants.dart';
 
@@ -130,7 +129,7 @@ class _CheckinCardState extends State<CheckinCard> {
               ),
               Spacer(),
               Checkbox(
-                  value: checked,
+                  value: widget.checkall || checked,
                   onChanged: (value) {
                     setState(() {
                       checked = value;

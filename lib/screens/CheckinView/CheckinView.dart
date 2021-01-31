@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:recurr_fe/models/recurr.dart';
+import 'package:recurr_fe/redux/state/app_state.dart';
 import 'package:recurr_fe/screens/CheckinView/components/checkinCard.dart';
 import 'package:slide_to_confirm/slide_to_confirm.dart';
 
@@ -50,24 +52,8 @@ class _CheckinViewState extends State<CheckinView> {
             children: [
               SizedBox(height: 20),
               DateAndCheckallBtn(checkall: checkall, setCheckAll: setCheckAll),
-              Container(
-                child: Column(
-                  children: [
-                    CheckinCard(
-                        recurr: Recurr('id', 'title', '12.213.12', 'team', 12,
-                            1.2, [true, false, true, false, true, true, true]),
-                        checkall: checkall),
-                    CheckinCard(
-                        recurr: Recurr('id', 'title', '12.213.12', 'team', 12,
-                            1.2, [true, false, true, false, true, true, true]),
-                        checkall: checkall),
-                    CheckinCard(
-                        recurr: Recurr('id', 'title', '12.213.12', 'team', 12,
-                            1.2, [true, false, true, false, true, true, true]),
-                        checkall: checkall),
-                  ],
-                ),
-              ),
+              // Recur Container
+              CheckinRecurContainer(checkall: checkall),
               Container(
                 width: double.infinity,
                 padding: EdgeInsets.all(40),
@@ -80,5 +66,33 @@ class _CheckinViewState extends State<CheckinView> {
         ),
       ),
     );
+  }
+}
+
+class CheckinRecurContainer extends StatelessWidget {
+  const CheckinRecurContainer({
+    Key key,
+    @required this.checkall,
+  }) : super(key: key);
+
+  final bool checkall;
+
+  @override
+  Widget build(BuildContext context) {
+    return StoreConnector<AppState, List<Recurr>>(
+        converter: (store) => store.state.recurrs,
+        builder: (BuildContext context, recurrs) {
+          return Container(
+            child: Column(
+              children: Recurr.getTodaysRecurrs(recurrs)
+                  .map((recurr) => CheckinCard(
+                        recurr: recurr,
+                        checkall: checkall,
+                      ))
+                  .toList(),
+            ),
+          );
+          ;
+        });
   }
 }

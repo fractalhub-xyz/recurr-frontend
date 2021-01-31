@@ -56,13 +56,13 @@ class CreateRecurrFormState extends State<CreateRecurrForm> {
   String team = 'PERSONAL';
   int duration = 7;
   double weight = 50;
-  bool sun = false;
   bool mon = false;
   bool tue = false;
   bool wed = false;
   bool thr = false;
   bool fri = false;
   bool sat = false;
+  bool sun = false;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class CreateRecurrFormState extends State<CreateRecurrForm> {
         String uuid = DateTime.now().toIso8601String();
         String ts = DateTime.now().toIso8601String();
         var newRecur = Recurr(uuid, title, ts, team, duration, weight,
-            [sun, mon, tue, wed, thr, fri, sat]);
+            [mon, tue, wed, thr, fri, sat, sun]);
         StoreProvider.of<AppState>(context)
             .dispatch(AddRecurrAction(item: newRecur));
         // Navigator.pushNamed(context, '/recur/list');
@@ -170,18 +170,6 @@ class CreateRecurrFormState extends State<CreateRecurrForm> {
                     children: [
                       Column(
                         children: [
-                          Text('sun'),
-                          Checkbox(
-                              value: sun,
-                              onChanged: (value) {
-                                setState(() {
-                                  sun = value;
-                                });
-                              })
-                        ],
-                      ),
-                      Column(
-                        children: [
                           Text('mon'),
                           Checkbox(
                               value: mon,
@@ -248,6 +236,18 @@ class CreateRecurrFormState extends State<CreateRecurrForm> {
                               onChanged: (value) {
                                 setState(() {
                                   sat = value;
+                                });
+                              })
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text('sun'),
+                          Checkbox(
+                              value: sun,
+                              onChanged: (value) {
+                                setState(() {
+                                  sun = value;
                                 });
                               })
                         ],
