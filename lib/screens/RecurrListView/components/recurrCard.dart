@@ -79,18 +79,7 @@ class _RecurrCardState extends State<RecurrCard> {
                     ),
                     SizedBox(width: 5),
                     //Labelled Icons (Streak)
-                    Row(
-                      children: [
-                        Text(
-                          '7',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: fs1,
-                          ),
-                        ),
-                        SvgPicture.asset("assets/icons/fire.svg", height: fs1)
-                      ],
-                    ),
+                    ConditionallyShowStreak(recurr.getStreak(), fs1),
                     Spacer(),
                     //Labelled Icons (Group)
                     Row(
@@ -125,6 +114,33 @@ class _RecurrCardState extends State<RecurrCard> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ConditionallyShowStreak extends StatelessWidget {
+  final int streak;
+  final double fs1;
+
+  ConditionallyShowStreak(this.streak, this.fs1);
+
+  @override
+  Widget build(BuildContext context) {
+    if (streak == 0) {
+      return Text("");
+    }
+
+    return Row(
+      children: [
+        Text(
+          streak.toString(),
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: fs1,
+          ),
+        ),
+        SvgPicture.asset("assets/icons/fire.svg", height: fs1)
+      ],
     );
   }
 }

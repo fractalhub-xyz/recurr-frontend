@@ -57,6 +57,12 @@ class Recurr {
     return days.join(" ");
   }
 
+  int getStreak() {
+    if (checkins.length == 0) {
+      return 0;
+    }
+  }
+
   static List<Recurr> getTodaysRecurrs(List<Recurr> recurrs) {
     int weekday = DateTime.now().weekday - 1;
     return recurrs.where((rcr) => rcr.repeats[weekday]).toList();
