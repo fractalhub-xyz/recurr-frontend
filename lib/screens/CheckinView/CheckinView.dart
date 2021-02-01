@@ -6,7 +6,6 @@ import 'package:recurr_fe/redux/state/app_state.dart';
 import 'package:recurr_fe/screens/CheckinView/components/checkinCard.dart';
 import 'package:slide_to_confirm/slide_to_confirm.dart';
 
-import '../../constants.dart';
 import 'components/dateAndCheckAllBtn.dart';
 
 typedef void CheckinCallback(String recurID, bool isChecked);
@@ -77,6 +76,7 @@ class _CheckinViewState extends State<CheckinView> {
                 checkall: checkall,
                 onCheckRecur: onCheckRecur,
               ),
+
               Container(
                 width: double.infinity,
                 padding: EdgeInsets.all(40),
@@ -109,16 +109,32 @@ class CheckinRecurContainer extends StatelessWidget {
         converter: (store) => store.state.recurrs,
         builder: (BuildContext context, recurrs) {
           return Container(
-            child: Column(
-              children: Recurr.getRecurrsToCheckIn(recurrs)
-                  .map((recurr) => CheckinCard(
-                        recurr: recurr,
-                        checkall: checkall,
-                        onCheckRecur: onCheckRecur,
-                      ))
-                  .toList(),
+            height:
+                Recurr.getRecurrsToCheckIn(recurrs).length.roundToDouble() * 85,
+            width: MediaQuery.of(context).size.width,
+            child: ListView.builder(
+              itemCount: Recurr.getRecurrsToCheckIn(recurrs).length,
+              itemBuilder: (context, index) {
+                return CheckinCard(
+                  recurr: Recurr.getRecurrsToCheckIn(recurrs)[index],
+                  checkall: checkall,
+                  onCheckRecur: onCheckRecur,
+                );
+              },
             ),
           );
         });
   }
 }
+
+// Container(
+//             child: Column(
+//               children: Recurr.getRecurrsToCheckIn(recurrs)
+//                   .map((recurr) => CheckinCard(
+//                         recurr: recurr,
+//                         checkall: checkall,
+//                         onCheckRecur: onCheckRecur,
+//                       ))
+//                   .toList(),
+//             ),
+//           );
