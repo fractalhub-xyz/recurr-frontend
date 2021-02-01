@@ -311,16 +311,30 @@ class CreateRecurrFormState extends State<CreateRecurrForm> {
                     } else if (repeatSelection == 'I\'ll choose') {
                       repeats = [mon, tue, wed, thr, fri, sat, sun];
                     }
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SelectTeamView(
-                                title: title,
-                                duration: duration,
-                                weight: weight,
-                                repeats: repeats,
-                              )),
-                    );
+                    print(repeats);
+                    if (repeats.every((val) => val == false)) {
+                      AlertDialog alert = AlertDialog(
+                        title: Text("Uh-oh!"),
+                        content: Text("Looks like you did not pick any day"),
+                      );
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return alert;
+                        },
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SelectTeamView(
+                                  title: title,
+                                  duration: duration,
+                                  weight: weight,
+                                  repeats: repeats,
+                                )),
+                      );
+                    }
                   }
                 },
               ),

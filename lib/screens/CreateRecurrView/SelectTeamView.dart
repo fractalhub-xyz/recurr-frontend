@@ -68,7 +68,7 @@ class _SelectTeamViewState extends State<SelectTeamView> {
         ),
         centerTitle: false,
         title: Text(
-          'Create Recurr',
+          'Pick Team',
           style: TextStyle(
             color: Colors.black,
             fontFamily: 'Poppins',
@@ -83,7 +83,8 @@ class _SelectTeamViewState extends State<SelectTeamView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            HeadingAndSubHeading(heading: 'Team', sub: 'Pick a team'),
+            HeadingAndSubHeading(
+                heading: 'Team', sub: 'Share progress with others in team - '),
             TextFormField(
               maxLength: 20,
               decoration: InputDecoration(
@@ -100,6 +101,7 @@ class _SelectTeamViewState extends State<SelectTeamView> {
                 return null;
               },
             ),
+            SizedBox(height: 10),
             FlatButton(
               padding: EdgeInsets.symmetric(vertical: 20),
               minWidth: double.infinity,
@@ -112,6 +114,7 @@ class _SelectTeamViewState extends State<SelectTeamView> {
                   borderRadius: BorderRadius.circular(5.0)),
               onPressed: () {
                 createRecur(context);
+                Navigator.popUntil(context, ModalRoute.withName('/'));
               },
             ),
           ],
