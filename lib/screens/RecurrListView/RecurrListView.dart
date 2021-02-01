@@ -81,6 +81,7 @@ Widget getListContainer(date, recurrs, context, selectedDate) {
   ];
   if (DateTime.now().day == date.day) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TitleWithButton(
           icon: Icons.add,
@@ -99,7 +100,17 @@ Widget getListContainer(date, recurrs, context, selectedDate) {
                 .toList(),
           ),
         ),
-        Text('Others', textAlign: TextAlign.left),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: EdgePadding, vertical: 10),
+          child: Text(
+            'Others',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'Poppins',
+            ),
+          ),
+        ),
         Container(
           padding: EdgeInsets.only(top: EdgePadding * 0.3),
           child: Column(

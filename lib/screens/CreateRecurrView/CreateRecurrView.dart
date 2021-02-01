@@ -69,7 +69,7 @@ class CreateRecurrFormState extends State<CreateRecurrForm> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius),
             color: Colors.grey[200]),
-        padding: EdgeInsets.symmetric(vertical: 10),
+        padding: EdgeInsets.only(top: 13, bottom: 5),
         margin: EdgeInsets.symmetric(vertical: 10),
         child: Column(
           children: [
@@ -208,7 +208,10 @@ class CreateRecurrFormState extends State<CreateRecurrForm> {
               TextFormField(
                 maxLength: 20,
                 decoration: InputDecoration(
-                    hintText: 'Ex. Drink Water', border: OutlineInputBorder()),
+                    hintText: 'Ex. Drink Water',
+                    border: OutlineInputBorder(),
+                    fillColor: Colors.grey[200],
+                    filled: true),
                 onSaved: (String value) {
                   setState(() {
                     title = value;
@@ -229,7 +232,7 @@ class CreateRecurrFormState extends State<CreateRecurrForm> {
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey[500]),
                     borderRadius: BorderRadius.circular(borderRadius)),
-                padding: EdgeInsets.only(bottom: 10),
+                padding: EdgeInsets.only(bottom: 9),
                 margin: EdgeInsets.only(bottom: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
