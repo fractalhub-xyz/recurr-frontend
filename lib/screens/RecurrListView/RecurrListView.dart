@@ -8,6 +8,7 @@ import 'package:recurr_fe/screens/RecurrListView/components/nameWithAvatar.dart'
 import 'package:recurr_fe/screens/RecurrListView/components/quote.dart';
 import 'package:recurr_fe/screens/RecurrListView/components/recurrCard.dart';
 import 'package:recurr_fe/screens/RecurrListView/components/titleWithButton.dart';
+import 'package:recurr_fe/utils/constants.dart';
 
 class RecurrListView extends StatefulWidget {
   @override
@@ -63,20 +64,7 @@ class _RecurrListViewState extends State<RecurrListView> {
   }
 
   Widget getListContainer(List<Recurr> recurrs) {
-    final List<String> months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December	',
-    ];
+
     if (DateTime.now().day == selectedDate.day) {
       var todaysRecurrs = Recurr.getTodaysRecurrs(recurrs);
       return Column(
@@ -133,7 +121,7 @@ class _RecurrListViewState extends State<RecurrListView> {
           TitleWithButton(
             icon: Icons.add,
             label:
-                'Viewing ${selectedDate.day} ${months[selectedDate.month - 1]}',
+                'Viewing ${selectedDate.day} ${Constants.months[selectedDate.month - 1]}',
             iconlabel: 'new recur',
             press: () {
               Navigator.pushNamed(context, '/recurr/create');
