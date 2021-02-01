@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:recurr_fe/screens/CreateRecurrView/SelectTeamView.dart';
 import '../../constants.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:recurr_fe/models/recurr.dart';
-import 'package:recurr_fe/redux/actions/recurr_actions.dart';
-import 'package:recurr_fe/redux/state/app_state.dart';
+import 'components/headingAndSubheading.dart';
 
 class CreateRecurrView extends StatelessWidget {
   @override
@@ -53,9 +51,8 @@ bool isNumeric(String s) {
 class CreateRecurrFormState extends State<CreateRecurrForm> {
   final _formKey = GlobalKey<FormState>();
   String title = 'TITLE';
-  String team = 'PERSONAL';
   int duration = 7;
-  double weight = 50;
+  double weight = 0;
   bool mon = false;
   bool tue = false;
   bool wed = false;
@@ -63,216 +60,272 @@ class CreateRecurrFormState extends State<CreateRecurrForm> {
   bool fri = false;
   bool sat = false;
   bool sun = false;
+  String repeatSelection = 'Everyday';
+  List<String> importance = ['Not Very', 'Important', 'I can\'t miss it'];
 
-  @override
-  Widget build(BuildContext context) {
-    createRecur(BuildContext context) {
-      try {
-        String uuid = DateTime.now().toIso8601String();
-        String ts = DateTime.now().toIso8601String();
-        var newRecur = Recurr(uuid, title, ts, team, duration, weight,
-            [mon, tue, wed, thr, fri, sat, sun]);
-        StoreProvider.of<AppState>(context)
-            .dispatch(AddRecurrAction(item: newRecur));
-        // Navigator.pushNamed(context, '/recur/list');
-      } catch (e) {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            content: Column(
+  Widget getDayPicker() {
+    if (repeatSelection == 'I\'ll choose') {
+      return Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(borderRadius),
+            color: Colors.grey[200]),
+        padding: EdgeInsets.symmetric(vertical: 10),
+        margin: EdgeInsets.symmetric(vertical: 10),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Error $e has occured'),
+                Column(
+                  children: [
+                    Text('mon'),
+                    Checkbox(
+                        value: mon,
+                        onChanged: (value) {
+                          setState(() {
+                            mon = value;
+                          });
+                        })
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text('tue'),
+                    Checkbox(
+                        value: tue,
+                        onChanged: (value) {
+                          setState(() {
+                            tue = value;
+                          });
+                        })
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text('wed'),
+                    Checkbox(
+                        value: wed,
+                        onChanged: (value) {
+                          setState(() {
+                            wed = value;
+                          });
+                        })
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text('thr'),
+                    Checkbox(
+                        value: thr,
+                        onChanged: (value) {
+                          setState(() {
+                            thr = value;
+                          });
+                        })
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text('fri'),
+                    Checkbox(
+                        value: fri,
+                        onChanged: (value) {
+                          setState(() {
+                            fri = value;
+                          });
+                        })
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text('sat'),
+                    Checkbox(
+                        value: sat,
+                        onChanged: (value) {
+                          setState(() {
+                            sat = value;
+                          });
+                        })
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text('sun'),
+                    Checkbox(
+                        value: sun,
+                        onChanged: (value) {
+                          setState(() {
+                            sun = value;
+                          });
+                        })
+                  ],
+                ),
               ],
             ),
-          ),
-        );
-        print('caught generic exception');
-        print(e);
-      }
+          ],
+        ),
+      );
+    } else {
+      return SizedBox();
     }
+  }
 
+  Widget customRadio(setas) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Column(
+        children: [
+          Radio(
+              value: setas,
+              groupValue: repeatSelection,
+              onChanged: (value) {
+                setState(() {
+                  repeatSelection = value;
+                });
+              }),
+          Text(
+            setas,
+            style: TextStyle(fontSize: 12),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // MAIN BUILD FUNCTION
+  @override
+  Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
     return Scaffold(
       body: Form(
         key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            //RecurName
-            TextFormField(
-              decoration: const InputDecoration(
-                icon: Icon(Icons.assignment_turned_in_outlined),
-                hintText: 'What would like to call your task',
-                labelText: 'Recur Name',
-              ),
-              onSaved: (String value) {
-                setState(() {
-                  title = value;
-                });
-              },
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-            ),
-            //Duration
-            TextFormField(
-              decoration: const InputDecoration(
-                icon: Icon(Icons.access_time),
-                hintText: 'What is the duration of the recur',
-                labelText: 'Recur Duration',
-              ),
-              onSaved: (String value) {
-                setState(() {
-                  duration = int.parse(value);
-                });
-              },
-              validator: (value) {
-                if (value.isEmpty) {
-                  if (isNumeric(value)) {
-                    return 'Enter a numeric value';
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              HeadingAndSubHeading(heading: 'Title', sub: 'Name your recurr'),
+              //RecurName
+              TextFormField(
+                maxLength: 20,
+                decoration: InputDecoration(
+                    hintText: 'Ex. Drink Water', border: OutlineInputBorder()),
+                onSaved: (String value) {
+                  setState(() {
+                    title = value;
+                  });
+                },
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter some text';
                   }
-                }
-                return null;
-              },
-            ),
-            //Weight
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
-              child: Column(
-                children: [
-                  Slider(
-                      value: weight,
-                      min: 0,
-                      max: 100,
-                      divisions: 100,
-                      label: weight.round().toString(),
-                      onChanged: (double value) {
-                        setState(() {
-                          weight = value;
-                        });
-                      }),
-                  Text('Weight'),
-                ],
+                  return null;
+                },
               ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(borderRadius),
-                  color: Colors.grey[200]),
-              padding: EdgeInsets.symmetric(vertical: 20),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
-                          Text('mon'),
-                          Checkbox(
-                              value: mon,
-                              onChanged: (value) {
-                                setState(() {
-                                  mon = value;
-                                });
-                              })
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text('tue'),
-                          Checkbox(
-                              value: tue,
-                              onChanged: (value) {
-                                setState(() {
-                                  tue = value;
-                                });
-                              })
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text('wed'),
-                          Checkbox(
-                              value: wed,
-                              onChanged: (value) {
-                                setState(() {
-                                  wed = value;
-                                });
-                              })
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text('thr'),
-                          Checkbox(
-                              value: thr,
-                              onChanged: (value) {
-                                setState(() {
-                                  thr = value;
-                                });
-                              })
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text('fri'),
-                          Checkbox(
-                              value: fri,
-                              onChanged: (value) {
-                                setState(() {
-                                  fri = value;
-                                });
-                              })
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text('sat'),
-                          Checkbox(
-                              value: sat,
-                              onChanged: (value) {
-                                setState(() {
-                                  sat = value;
-                                });
-                              })
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text('sun'),
-                          Checkbox(
-                              value: sun,
-                              onChanged: (value) {
-                                setState(() {
-                                  sun = value;
-                                });
-                              })
-                        ],
-                      ),
-                    ],
-                  ),
-                  Text('Repeat on')
-                ],
+              HeadingAndSubHeading(
+                  heading: 'Recurrtions',
+                  sub: 'How often would you like to follow this recurr'),
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey[500]),
+                    borderRadius: BorderRadius.circular(borderRadius)),
+                padding: EdgeInsets.only(bottom: 10),
+                margin: EdgeInsets.only(bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    customRadio('Everyday'),
+                    customRadio('Weekdays'),
+                    customRadio('Weekends'),
+                    customRadio('I\'ll choose'),
+                  ],
+                ),
               ),
-            ),
-            IconButton(
-              icon: Icon(Icons.keyboard_arrow_right),
-              onPressed: () {
-                // Validate returns true if the form is valid, or false
-                // otherwise.
+              getDayPicker(),
+              // //Duration
+              // TextFormField(
+              //   decoration: InputDecoration(
+              //       hintText: 'Ex. Drink Water', border: OutlineInputBorder()),
+              //   onSaved: (String value) {
+              //     setState(() {
+              //       duration = int.parse(value);
+              //     });
+              //   },
+              //   validator: (value) {
+              //     if (value.isEmpty) {
+              //       if (isNumeric(value)) {
+              //         return 'Enter a numeric value';
+              //       }
+              //     }
+              //     return null;
+              //   },
+              // ),
+              // //Weight
+              Padding(
+                padding: EdgeInsets.only(top: 10.0),
+                child: HeadingAndSubHeading(
+                    heading: 'Importance',
+                    sub:
+                        'We will evaluate your score based on the imporatance of your recurr'),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Column(
+                  children: [
+                    Slider(
+                        activeColor: Colors.teal,
+                        value: weight,
+                        min: 0,
+                        max: 2,
+                        divisions: 2,
+                        label: importance[weight.round()],
+                        onChanged: (double value) {
+                          setState(() {
+                            weight = value;
+                          });
+                        }),
+                  ],
+                ),
+              ),
 
-                if (_formKey.currentState.validate()) {
-                  _formKey.currentState.save();
-
-                  print('Next');
-                  createRecur(context);
-                }
-              },
-            ),
-          ],
+              FlatButton(
+                padding: EdgeInsets.symmetric(vertical: 20),
+                minWidth: double.infinity,
+                color: Colors.teal,
+                child: Text(
+                  'Next',
+                  style: TextStyle(color: Colors.white),
+                ),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0)),
+                onPressed: () {
+                  if (_formKey.currentState.validate()) {
+                    _formKey.currentState.save();
+                    List<bool> repeats = [];
+                    if (repeatSelection == 'Everyday') {
+                      repeats = [true, true, true, true, true, true, true];
+                    } else if (repeatSelection == 'Weekdays') {
+                      repeats = [true, true, true, true, true, false, false];
+                    } else if (repeatSelection == 'Weekends') {
+                      repeats = [false, false, false, false, false, true, true];
+                    } else if (repeatSelection == 'I\'ll choose') {
+                      repeats = [mon, tue, wed, thr, fri, sat, sun];
+                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SelectTeamView(
+                                title: title,
+                                duration: duration,
+                                weight: weight,
+                                repeats: repeats,
+                              )),
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

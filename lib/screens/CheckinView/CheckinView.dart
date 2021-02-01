@@ -68,7 +68,6 @@ class _CheckinViewState extends State<CheckinView> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: EdgePadding),
           child: Column(
             children: [
               SizedBox(height: 20),
