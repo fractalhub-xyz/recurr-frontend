@@ -79,7 +79,7 @@ class _RecurrCardState extends State<RecurrCard> {
                             : TextDecoration.none,
                       ),
                     ),
-                    SizedBox(width: 5),
+                    SizedBox(width: 20),
                     //Labelled Icons (Streak)
                     ConditionallyShowStreak(recurr.getStreak(), fs1),
                     Spacer(),

@@ -70,8 +70,9 @@ class _RecurrDetailViewState extends State<RecurrDetailView> {
           child: Column(
             children: [
               SizedBox(height: 20),
-              ScoreAndStreakCard(),
-              RepeatDaysAndGroup(team: recurr.team, repeatString: recurr.getRepeatString()),
+              ScoreAndStreakCard(streak: recurr.getStreak()),
+              RepeatDaysAndGroup(
+                  team: recurr.team, repeatString: recurr.getRepeatString()),
               SizedBox(height: 10),
               MomemtumHeader(setSelection: setSelection, selection: selection),
               Momentum(height: height),

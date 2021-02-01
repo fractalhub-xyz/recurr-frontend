@@ -6,7 +6,9 @@ import '../../../constants.dart';
 class ScoreAndStreakCard extends StatelessWidget {
   const ScoreAndStreakCard({
     Key key,
+    this.streak,
   }) : super(key: key);
+  final int streak;
 
   Widget streakIcon() {
     if (false) {
@@ -42,27 +44,36 @@ class ScoreAndStreakCard extends StatelessWidget {
             ],
           ),
           Spacer(),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                'STREAK',
-                style: TextStyle(fontWeight: FontWeight.w300, fontSize: 12),
-              ),
-              Row(
-                children: [
-                  Text(
-                    '5',
-                    style:
-                        TextStyle(fontWeight: FontWeight.w800, fontSize: fs1),
-                  ),
-                  streakIcon(),
-                ],
-              )
-            ],
-          ),
+          ConditionallyShowStreak(streak, fs1),
         ],
       ),
+    );
+  }
+}
+
+class ConditionallyShowStreak extends StatelessWidget {
+  final int streak;
+  final double fs1;
+
+  ConditionallyShowStreak(this.streak, this.fs1);
+
+  @override
+  Widget build(BuildContext context) {
+    if (streak == 0) {
+      return Text("");
+    }
+
+    return Row(
+      children: [
+        Text(
+          streak.toString(),
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: fs1,
+          ),
+        ),
+        SvgPicture.asset("assets/icons/fire.svg", height: fs1)
+      ],
     );
   }
 }
