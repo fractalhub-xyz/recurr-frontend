@@ -117,7 +117,7 @@ class CheckinRecurContainer extends StatelessWidget {
   Widget getListContainer(List<Recurr> recurrs) {
     return Column(
       key: Key(recurrs.length.toString()),
-      children: recurrs
+      children: Recurr.getRecurrsToCheckIn(recurrs)
           .map((recurr) => CheckinCard(
                 recurr: recurr,
                 checkall: checkall,

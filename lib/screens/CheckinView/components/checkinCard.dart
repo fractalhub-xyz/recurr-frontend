@@ -39,7 +39,6 @@ class _CheckinCardState extends State<CheckinCard> {
   final double fs1 = 16.0;
   final double fs2 = 12.0;
 
-
   setbg() {
     if (checked) {
       baseColor = Colors.blueGrey[100];
@@ -59,6 +58,7 @@ class _CheckinCardState extends State<CheckinCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      key: Key(recurr.id),
       onTap: () {
         onCheck(!checked);
       },

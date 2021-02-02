@@ -17,10 +17,12 @@ class Calender extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      reverse: true,
       scrollDirection: Axis.horizontal,
       child: Container(
         padding:
             EdgeInsets.only(top: EdgePadding * 0.7, bottom: EdgePadding * 2),
+        margin: EdgeInsets.only(right: EdgePadding * 0.9),
         child: Row(children: [
           DateCard(
               date: date.subtract(Duration(hours: 24) * 13),

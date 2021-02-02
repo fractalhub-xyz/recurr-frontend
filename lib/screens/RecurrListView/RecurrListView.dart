@@ -64,7 +64,6 @@ class _RecurrListViewState extends State<RecurrListView> {
   }
 
   Widget getListContainer(List<Recurr> recurrs) {
-
     if (DateTime.now().day == selectedDate.day) {
       var todaysRecurrs = Recurr.getTodaysRecurrs(recurrs);
       return Column(
@@ -79,20 +78,18 @@ class _RecurrListViewState extends State<RecurrListView> {
             },
           ),
           Container(
-              padding: EdgeInsets.only(top: EdgePadding * 0.3),
-              // Only this needs list view cause only this changes order
-              child: ListView.builder(
-                itemCount: todaysRecurrs.length,
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                key: Key(todaysRecurrs.length.toString()),
-                itemBuilder: (BuildContext context, int index) {
-                  return RecurrCard(
-                    recurr: todaysRecurrs[index],
-                    selectedDate: selectedDate,
-                  );
-                },
-              )),
+            padding: EdgeInsets.only(top: EdgePadding * 0.3),
+            // Only this needs list view cause only this changes order
+            child: Column(
+              key: Key(todaysRecurrs.length.toString()),
+              children: todaysRecurrs
+                  .map((recurr) => RecurrCard(
+                        recurr: recurr,
+                        selectedDate: selectedDate,
+                      ))
+                  .toList(),
+            ),
+          ),
           Container(
             padding:
                 EdgeInsets.symmetric(horizontal: EdgePadding, vertical: 10),

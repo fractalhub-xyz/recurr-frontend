@@ -28,16 +28,22 @@ class LocalNotification {
     // );
   }
 
-  setNotificationatTime() async {
+  setNotificationatTime(hour, minute, second) async {
     var androidDetails = AndroidNotificationDetails(
         "0", "channelName", "channelDescription",
         importance: Importance.Max);
     var iosDetails = IOSNotificationDetails();
     var notificationDetails = NotificationDetails(androidDetails, iosDetails);
-    // var notificationTime = Time(20, 1, 20);
+    var notificationTime = Time(hour, minute, second);
+    print('set');
+    await _fltrNotification.showDailyAtTime(
+        0, 'title', 'body', notificationTime, notificationDetails);
+    // await _fltrNotification.show(0, "title", "body", notificationDetails);
+  }
 
-    // await _fltrNotification.showDailyAtTime(
-    //     0, 'title', 'body', notificationTime, notificationDetails);
-    await _fltrNotification.show(0, "title", "body", notificationDetails);
+  Future getActiveNotif() async {
+    final List<PendingNotificationRequest> pendingNotificationRequests =
+        await _fltrNotification.pendingNotificationRequests();
+    return pendingNotificationRequests;
   }
 }

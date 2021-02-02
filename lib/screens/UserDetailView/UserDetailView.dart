@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:recurr_fe/screens/UserDetailView/NotificationTimePicker.dart';
 import 'package:recurr_fe/utils/notifications/notifications.dart';
 
@@ -32,10 +33,11 @@ class _UserDetailViewState extends State<UserDetailView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             RaisedButton(
-              child: Text('Show notif'),
+              child: Text('Show active notif'),
               onPressed: () {
                 LocalNotification notification = LocalNotification(context);
-                notification.setNotificationatTime();
+                dynamic activenotifs = notification.getActiveNotif();
+                activenotifs.then(print(activenotifs));
               },
             ),
             RaisedButton(
@@ -47,7 +49,7 @@ class _UserDetailViewState extends State<UserDetailView> {
               },
             ),
             RaisedButton(
-              child: Text('Show notif'),
+              child: Text('set time for notif'),
               onPressed: () {
                 Navigator.push(
                     context,
