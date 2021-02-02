@@ -7,6 +7,7 @@ final syncableActions = List.unmodifiable([
   "ADD_RECURR",
   "UDPATE_RECURR",
   "DELETE_RECURR",
+  "CHECKIN_RECURR",
 ]);
 
 Future<HttpsCallableResult> firebaseDispatch(List actions) {

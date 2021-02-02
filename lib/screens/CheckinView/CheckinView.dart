@@ -109,7 +109,7 @@ class CheckinRecurContainer extends StatelessWidget {
         converter: (store) => store.state.recurrs,
         builder: (BuildContext context, recurrs) {
           return Container(
-            child: getListContainer(recurrs),
+            child: getListContainer(Recurr.getRecurrsToCheckIn(recurrs)),
           );
         });
   }
@@ -117,8 +117,9 @@ class CheckinRecurContainer extends StatelessWidget {
   Widget getListContainer(List<Recurr> recurrs) {
     return Column(
       key: Key(recurrs.length.toString()),
-      children: Recurr.getRecurrsToCheckIn(recurrs)
+      children: recurrs
           .map((recurr) => CheckinCard(
+                key: Key(recurr.id),
                 recurr: recurr,
                 checkall: checkall,
                 onCheckRecur: onCheckRecur,

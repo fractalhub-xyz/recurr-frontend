@@ -84,6 +84,7 @@ class _RecurrListViewState extends State<RecurrListView> {
               key: Key(todaysRecurrs.length.toString()),
               children: todaysRecurrs
                   .map((recurr) => RecurrCard(
+                        key: Key(recurr.id),
                         recurr: recurr,
                         selectedDate: selectedDate,
                       ))

@@ -58,7 +58,6 @@ class _CheckinCardState extends State<CheckinCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      key: Key(recurr.id),
       onTap: () {
         onCheck(!checked);
       },
