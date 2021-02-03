@@ -102,6 +102,12 @@ class Recurr {
     return recurrs.where((rcr) => rcr.repeats[date.weekday - 1]).toList();
   }
 
+  static List<Recurr> getCheckedInRecursByDate(
+      List<Recurr> recurrs, DateTime date) {
+    var rcrs = getRecurrsByDate(recurrs, date);
+    return rcrs.where((rcr) => rcr.isCheckedInOnDate(date));
+  }
+
   static List<Recurr> getOtherRecurrs(List<Recurr> recurrs) {
     int weekday = DateTime.now().weekday - 1;
     return recurrs.where((rcr) => !rcr.repeats[weekday]).toList();
