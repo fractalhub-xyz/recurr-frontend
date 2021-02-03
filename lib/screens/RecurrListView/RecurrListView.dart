@@ -107,7 +107,7 @@ class _RecurrListViewState extends State<RecurrListView> {
             padding: EdgeInsets.only(top: EdgePadding * 0.3),
             child: Column(
               children: Recurr.getOtherRecurrs(recurrs)
-                  .map((recurr) => RecurrCard(recurr: recurr))
+                  .map((recurr) => RecurrCard(recurr: recurr, selectedDate: selectedDate,))
                   .toList(),
             ),
           ),

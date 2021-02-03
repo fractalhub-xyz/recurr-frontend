@@ -26,17 +26,12 @@ List<Recurr> _updateRecurr(List<Recurr> recurrs, UpdateRecurrAction action) {
 }
 
 List<Recurr> _checkInRecur(List<Recurr> recurrs, CheckInAction action) {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  var currentCheckin = Checkin(
-    user: _auth.currentUser.uid,
-    timestamp: DateTime.now(),
-  );
+  var timestamp = DateTime.now();
 
   return recurrs.map((rcr) {
     if (action.recurIds.contains(rcr.id)) {
       if (!rcr.isCheckedInToday()) {
-        rcr.checkins.add(currentCheckin);
+        rcr.addNewCheckin(timestamp);
       }
     }
     return rcr;

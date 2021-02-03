@@ -74,7 +74,7 @@ class _RecurrCardState extends State<RecurrCard> {
                         fontFamily: 'Poppins',
                         fontSize: fs1,
                         fontWeight: FontWeight.w500,
-                        decoration: recurr.isCheckedOnDate(widget.selectedDate)
+                        decoration: recurr.isCheckedInOnDate(widget.selectedDate)
                             ? TextDecoration.lineThrough
                             : TextDecoration.none,
                       ),

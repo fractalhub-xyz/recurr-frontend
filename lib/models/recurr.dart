@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:recurr_fe/models/checkin.dart';
 import 'package:recurr_fe/utils/helpers.dart';
 
@@ -8,7 +9,7 @@ class Recurr {
   int duration;
   double weight;
   List<bool> repeats;
-  List<Checkin> checkins = [];
+  Map<String, Checkin> checkins = {};
 
   Recurr(this.id, this.title, this.createdAt, this.team, this.duration,
       this.weight, this.repeats);
@@ -21,7 +22,7 @@ class Recurr {
         "team": team,
         "weight": weight,
         "repeats": jsonEncode(repeats),
-        "checkins": checkins.map((c) => c.toJson()).toList(),
+        "checkins": checkins.map((key, value) => MapEntry(key, value.toJson())),
       };
 
   // Named Constructor (https://dart.dev/guides/language/language-tour#using-constructors)
@@ -33,12 +34,14 @@ class Recurr {
     team = json["team"];
     weight = json["weight"];
     repeats = jsonDecode(json["repeats"]).cast<bool>().toList();
-    if (json["checkins"] != null) {
-      checkins = json["checkins"]
-          .map((check) => Checkin.fromJson(check))
-          .cast<Checkin>()
-          .toList();
-    }
+
+    json["checkins"]?.forEach((key, value) {
+      checkins[key] = Checkin.fromJson(value);
+    });
+    var dbyday = DateTime(2021, 2, 1, 22);
+    var yday = DateTime(2021, 2, 2, 22);
+    addNewCheckin(yday);
+    addNewCheckin(dbyday);
   }
 
   // Methods
@@ -67,23 +70,15 @@ class Recurr {
     int i = 0;
     DateTime current = DateTime.now();
 
-    if (repeats[current.weekday - 1] && isCheckedInToday()) {
-      streak = streak + 1;
-      i = i + 1;
-    }
-
     // For calculating previous streak
-    DateTime prev = DateUtils.getPreviousDayFromRepeats(repeats, current);
-
     while (i < checkins.length) {
-      var prevCheckin = checkins[i];
-
-      if (!DateUtils.isSameDate(prev, prevCheckin.timestamp)) {
+      if (repeats[current.weekday - 1] && !isCheckedInOnDate(current)) {
         break;
       }
 
       streak = streak + 1;
       i = i + 1;
+      current = DateUtils.getPreviousDayFromRepeats(repeats, current);
     }
 
     return streak;
@@ -112,30 +107,31 @@ class Recurr {
     return recurrs.where((rcr) => !rcr.repeats[weekday]).toList();
   }
 
-  bool isCheckedInToday() {
-    if (checkins.length == 0) {
-      return false;
+  String getCheckinKey(DateTime dt, [User user]) {
+    if (user == null) {
+      user = FirebaseAuth.instance.currentUser;
     }
-
-    Checkin lastCheckin = checkins[0];
-    return DateUtils.isToday(lastCheckin.timestamp);
+    var date = "${dt.year}_${dt.month}_${dt.day}";
+    return "${user.uid}__$date";
   }
 
-  bool isCheckedOnDate(date) {
+  bool isCheckedInToday() => isCheckedInOnDate(DateTime.now());
+
+  bool isCheckedInOnDate(DateTime date, [User user]) {
     if (checkins.length == 0) {
       return false;
     }
 
-    int i = 0;
-    while (i < checkins.length) {
-      var checkinTimeStamp = checkins[i].timestamp;
-      if (DateUtils.isSameDate(date, checkinTimeStamp)) {
-        return true;
-      } else {
-        i++;
-      }
+    var key = getCheckinKey(date, user);
+    return checkins.containsKey(key);
+  }
+
+  void addNewCheckin(DateTime dt, [User user]) {
+    if (user == null) {
+      user = FirebaseAuth.instance.currentUser;
     }
-    return false;
+    var key = getCheckinKey(dt, user);
+    checkins[key] = Checkin(timestamp: dt, user: user.uid);
   }
 
   static List<Recurr> getRecurrsToCheckIn(List<Recurr> recurrs) {
