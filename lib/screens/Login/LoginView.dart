@@ -34,7 +34,7 @@ class _LoginViewState extends State<LoginView> {
       onPressed: () {
         signInWithGoogle().then((result) {
           if (result != null) {
-            Navigator.pushReplacementNamed(context, '/');
+            Navigator.pushReplacementNamed(context, '/home');
           }
         });
       },

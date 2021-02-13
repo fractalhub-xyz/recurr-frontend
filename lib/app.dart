@@ -11,7 +11,7 @@ class App extends StatelessWidget {
 
   String getLandingRoute() {
     var user = _auth.currentUser;
-    return user != null ? "/" : "/login";
+    return user != null ? "/home" : "/login";
   }
 
   @override
@@ -24,7 +24,7 @@ class App extends StatelessWidget {
       initialRoute: getLandingRoute(),
       routes: {
         '/login': (context) => LoginView(),
-        '/': (context) => HomeView(),
+        '/home': (context) => HomeView(),
         '/recurr/create': (context) => CreateRecurrView(),
         '/recurr/checkin': (context) => CheckinView(),
         'notification': (context) => NotificationTestPage(),

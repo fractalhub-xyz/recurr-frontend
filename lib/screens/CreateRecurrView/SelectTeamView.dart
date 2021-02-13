@@ -114,7 +114,7 @@ class _SelectTeamViewState extends State<SelectTeamView> {
                   borderRadius: BorderRadius.circular(5.0)),
               onPressed: () {
                 createRecur(context);
-                Navigator.popUntil(context, ModalRoute.withName('/'));
+                Navigator.popUntil(context, ModalRoute.withName('/home'));
               },
             ),
           ],
