@@ -53,142 +53,221 @@ class CreateRecurrFormState extends State<CreateRecurrForm> {
   String title = 'TITLE';
   int duration = 7;
   double weight = 0;
-  bool mon = false;
-  bool tue = false;
-  bool wed = false;
-  bool thr = false;
-  bool fri = false;
-  bool sat = false;
-  bool sun = false;
+  bool mon = true;
+  bool tue = true;
+  bool wed = true;
+  bool thr = true;
+  bool fri = true;
+  bool sat = true;
+  bool sun = true;
   String repeatSelection = 'Everyday';
   List<String> importance = ['Not Very', 'Important', 'I can\'t miss it'];
 
-  Widget getDayPicker() {
-    if (repeatSelection == 'I\'ll choose') {
-      return Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(borderRadius),
-            color: Colors.grey[200]),
-        padding: EdgeInsets.only(top: 13, bottom: 5),
-        margin: EdgeInsets.symmetric(vertical: 10),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    Text('mon'),
-                    Checkbox(
-                        value: mon,
-                        onChanged: (value) {
-                          setState(() {
-                            mon = value;
-                          });
-                        })
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text('tue'),
-                    Checkbox(
-                        value: tue,
-                        onChanged: (value) {
-                          setState(() {
-                            tue = value;
-                          });
-                        })
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text('wed'),
-                    Checkbox(
-                        value: wed,
-                        onChanged: (value) {
-                          setState(() {
-                            wed = value;
-                          });
-                        })
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text('thr'),
-                    Checkbox(
-                        value: thr,
-                        onChanged: (value) {
-                          setState(() {
-                            thr = value;
-                          });
-                        })
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text('fri'),
-                    Checkbox(
-                        value: fri,
-                        onChanged: (value) {
-                          setState(() {
-                            fri = value;
-                          });
-                        })
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text('sat'),
-                    Checkbox(
-                        value: sat,
-                        onChanged: (value) {
-                          setState(() {
-                            sat = value;
-                          });
-                        })
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text('sun'),
-                    Checkbox(
-                        value: sun,
-                        onChanged: (value) {
-                          setState(() {
-                            sun = value;
-                          });
-                        })
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
-    } else {
-      return SizedBox();
+  updateSelectedDays() {
+    if (repeatSelection == 'Everyday') {
+      setState(() {
+        mon = true;
+        tue = true;
+        wed = true;
+        thr = true;
+        fri = true;
+        sat = true;
+        sun = true;
+      });
+    } else if (repeatSelection == 'Weekdays') {
+      mon = true;
+      tue = true;
+      wed = true;
+      thr = true;
+      fri = true;
+      sat = false;
+      sun = false;
+    } else if (repeatSelection == 'Weekends') {
+      mon = false;
+      tue = false;
+      wed = false;
+      thr = false;
+      fri = false;
+      sat = true;
+      sun = true;
     }
   }
 
-  Widget customRadio(setas) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+  Widget getDayPicker() {
+    return Container(
+      margin: EdgeInsets.only(bottom: 10),
       child: Column(
         children: [
-          Radio(
-              value: setas,
-              groupValue: repeatSelection,
-              onChanged: (value) {
-                setState(() {
-                  repeatSelection = value;
-                });
-              }),
-          Text(
-            setas,
-            style: TextStyle(fontSize: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    mon = !mon;
+                  });
+                },
+                child: Container(
+                  height: 38,
+                  width: 38,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: mon == true ? Colors.blue : Colors.grey),
+                  child: Center(
+                    child: Text(
+                      'M',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    tue = !tue;
+                  });
+                },
+                child: Container(
+                  height: 38,
+                  width: 38,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: tue == true ? Colors.blue : Colors.grey),
+                  child: Center(
+                    child: Text(
+                      'T',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    wed = !wed;
+                  });
+                },
+                child: Container(
+                  height: 38,
+                  width: 38,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: wed == true ? Colors.blue : Colors.grey),
+                  child: Center(
+                    child: Text(
+                      'W',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    thr = !thr;
+                  });
+                },
+                child: Container(
+                  height: 38,
+                  width: 38,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: thr == true ? Colors.blue : Colors.grey),
+                  child: Center(
+                    child: Text(
+                      'T',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    fri = !fri;
+                  });
+                },
+                child: Container(
+                  height: 38,
+                  width: 38,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: fri == true ? Colors.blue : Colors.grey),
+                  child: Center(
+                    child: Text(
+                      'F',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    sat = !sat;
+                  });
+                },
+                child: Container(
+                  height: 38,
+                  width: 38,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: sat == true ? Colors.blue : Colors.grey),
+                  child: Center(
+                    child: Text(
+                      'S',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    sun = !sun;
+                  });
+                },
+                child: Container(
+                  height: 38,
+                  width: 38,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: sun == true ? Colors.blue : Colors.grey),
+                  child: Center(
+                    child: Text(
+                      'S',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
+    );
+  }
+
+  Widget customRadio(setas) {
+    return Row(
+      children: [
+        Radio(
+            value: setas,
+            groupValue: repeatSelection,
+            onChanged: (value) {
+              setState(() {
+                repeatSelection = value;
+              });
+              updateSelectedDays();
+            }),
+        Text(
+          setas,
+          style: TextStyle(fontSize: 12),
+        ),
+        SizedBox(
+          width: 20,
+        ),
+      ],
     );
   }
 
@@ -210,7 +289,7 @@ class CreateRecurrFormState extends State<CreateRecurrForm> {
                 decoration: InputDecoration(
                     hintText: 'Ex. Drink Water',
                     border: OutlineInputBorder(),
-                    fillColor: Colors.grey[200],
+                    fillColor: Colors.grey[100],
                     filled: true),
                 onSaved: (String value) {
                   setState(() {
@@ -228,42 +307,18 @@ class CreateRecurrFormState extends State<CreateRecurrForm> {
                   heading: 'Recurrtions',
                   sub: 'How often would you like to follow this recurr'),
               Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey[500]),
-                    borderRadius: BorderRadius.circular(borderRadius)),
                 padding: EdgeInsets.only(bottom: 9),
-                margin: EdgeInsets.only(bottom: 10),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     customRadio('Everyday'),
                     customRadio('Weekdays'),
                     customRadio('Weekends'),
-                    customRadio('I\'ll choose'),
                   ],
                 ),
               ),
               getDayPicker(),
-              // //Duration
-              // TextFormField(
-              //   decoration: InputDecoration(
-              //       hintText: 'Ex. Drink Water', border: OutlineInputBorder()),
-              //   onSaved: (String value) {
-              //     setState(() {
-              //       duration = int.parse(value);
-              //     });
-              //   },
-              //   validator: (value) {
-              //     if (value.isEmpty) {
-              //       if (isNumeric(value)) {
-              //         return 'Enter a numeric value';
-              //       }
-              //     }
-              //     return null;
-              //   },
-              // ),
-              // //Weight
+
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
                 child: HeadingAndSubHeading(
@@ -304,16 +359,7 @@ class CreateRecurrFormState extends State<CreateRecurrForm> {
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    List<bool> repeats = [];
-                    if (repeatSelection == 'Everyday') {
-                      repeats = [true, true, true, true, true, true, true];
-                    } else if (repeatSelection == 'Weekdays') {
-                      repeats = [true, true, true, true, true, false, false];
-                    } else if (repeatSelection == 'Weekends') {
-                      repeats = [false, false, false, false, false, true, true];
-                    } else if (repeatSelection == 'I\'ll choose') {
-                      repeats = [mon, tue, wed, thr, fri, sat, sun];
-                    }
+                    List<bool> repeats = [mon, tue, wed, thr, fri, sat, sun];
                     print(repeats);
                     if (repeats.every((val) => val == false)) {
                       AlertDialog alert = AlertDialog(
