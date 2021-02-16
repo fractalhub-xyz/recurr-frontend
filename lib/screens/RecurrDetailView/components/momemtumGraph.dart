@@ -28,12 +28,12 @@ class Momentum extends StatelessWidget {
       child: Container(
           height: height * 0.3,
           width: double.infinity,
-          child: LineChart(data(bg))),
+          child: LineChart(data(bg, recurr))),
     );
   }
 }
 
-LineChartData data(bg) {
+LineChartData data(bg, Recurr recurr) {
   List<Color> gradientColors = [
     const Color(0xff23b6e6),
     const Color(0xff02d39a),
@@ -42,7 +42,7 @@ LineChartData data(bg) {
   return LineChartData(
     minX: 0,
     maxX: 11,
-    minY: 0,
+    minY: 1,
     maxY: 6,
     borderData: FlBorderData(show: false),
     titlesData: FlTitlesData(show: false),
@@ -64,22 +64,7 @@ LineChartData data(bg) {
           colors:
               gradientColors.map((color) => color.withOpacity(0.3)).toList(),
         ),
-        spots: [
-          FlSpot(0, 3),
-          FlSpot(1, 1),
-          FlSpot(2, 1),
-          FlSpot(3, 3),
-          FlSpot(4, 1),
-          FlSpot(5, 5),
-          FlSpot(6, 1),
-          FlSpot(7, 5),
-          FlSpot(8, 5),
-          FlSpot(9, 5),
-          FlSpot(10, 5),
-          FlSpot(11, 5),
-          FlSpot(12, 5),
-          FlSpot(13, 5),
-        ],
+        spots: recurr.getMomentum(),
       ),
     ],
   );

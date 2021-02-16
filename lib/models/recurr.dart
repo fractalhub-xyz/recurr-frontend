@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:ffi';
+import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -152,26 +154,46 @@ class Recurr {
     return todaysRecurs.where((rcr) => !rcr.isCheckedInToday()).toList();
   }
 
-  List<bool> _getLastXDays(int x) {
-    List<bool> last14Days = [];
+  // Returns last X day window as an array of int
+  // if checked 1 (in future, this might be the value of check in), else 0
+  List<int> _getLastXDays(int x) {
+    List<int> lastXDays = [];
+    // We start out with tomo, so we don't have to add special cnditin fr tday
+    DateTime current = DateTime.now().add(Duration(days: 1));
+
     int i = 0;
-    DateTime current = DateTime.now();
-    while (i < checkins.length || i < x) {
+    while (i < x) {
+      current = DateUtils.getPreviousDayFromRepeats(repeats, current);
       print(current);
-      if (repeats[current.weekday - 1] && isCheckedInOnDate(current)) {
-        last14Days.insert(0, true);
+      if (isCheckedInOnDate(current)) {
+        lastXDays.insert(0, 1);
       } else {
-        last14Days.insert(0, false);
+        lastXDays.insert(0, 0);
       }
 
       i = i + 1;
-      current = DateUtils.getPreviousDayFromRepeats(repeats, current);
     }
+
+    return lastXDays;
   }
 
-  void getMomentum() {
-    List<bool> last14Days = _getLastXDays(14);
+  List<FlSpot> getMomentum() {
+    List<int> last14Days = _getLastXDays(14);
+    List<FlSpot> flspt = [];
+    double base = 2;
+    int exp = 0;
+
+    last14Days.asMap().forEach((idx, value) {
+      if (value != 0) {
+        exp++;
+      }
+
+      flspt.add(FlSpot(idx.toDouble(), pow(base, exp)));
+    });
 
     print("Last 14 days: $last14Days");
+    print("Momentum: $flspt");
+
+    return flspt;
   }
 }
