@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:recurr_fe/models/recurr.dart';
 
 import '../../../constants.dart';
 
@@ -7,12 +8,15 @@ class Momentum extends StatelessWidget {
   const Momentum({
     Key key,
     @required this.height,
+    @required this.recurr,
   }) : super(key: key);
 
   final double height;
+  final Recurr recurr;
 
   @override
   Widget build(BuildContext context) {
+    recurr.getMomentum();
     final Color bg = Colors.blueGrey[900];
     return Container(
       decoration: BoxDecoration(
@@ -62,13 +66,19 @@ LineChartData data(bg) {
         ),
         spots: [
           FlSpot(0, 3),
+          FlSpot(1, 1),
           FlSpot(2, 1),
-          FlSpot(3, 1),
-          FlSpot(4, 3),
-          FlSpot(5, 1),
-          FlSpot(6, 5),
-          FlSpot(8, 1),
+          FlSpot(3, 3),
+          FlSpot(4, 1),
+          FlSpot(5, 5),
+          FlSpot(6, 1),
+          FlSpot(7, 5),
+          FlSpot(8, 5),
+          FlSpot(9, 5),
+          FlSpot(10, 5),
           FlSpot(11, 5),
+          FlSpot(12, 5),
+          FlSpot(13, 5),
         ],
       ),
     ],

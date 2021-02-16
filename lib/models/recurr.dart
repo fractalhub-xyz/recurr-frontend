@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:recurr_fe/models/checkin.dart';
 import 'package:recurr_fe/utils/helpers.dart';
 
@@ -69,16 +70,22 @@ class Recurr {
     // Current checkin index
     int i = 0;
     DateTime current = DateTime.now();
+    // today
+    if (repeats[current.weekday - 1] && isCheckedInToday()) {
+      streak += 1;
+      i += 1;
+    }
 
     // For calculating previous streak
     while (i < checkins.length) {
+      current = DateUtils.getPreviousDayFromRepeats(repeats, current);
+
       if (repeats[current.weekday - 1] && !isCheckedInOnDate(current)) {
         break;
       }
 
       streak = streak + 1;
       i = i + 1;
-      current = DateUtils.getPreviousDayFromRepeats(repeats, current);
     }
 
     return streak;
@@ -143,5 +150,28 @@ class Recurr {
   static List<Recurr> getRecurrsToCheckIn(List<Recurr> recurrs) {
     var todaysRecurs = Recurr.getTodaysRecurrs(recurrs);
     return todaysRecurs.where((rcr) => !rcr.isCheckedInToday()).toList();
+  }
+
+  List<bool> _getLastXDays(int x) {
+    List<bool> last14Days = [];
+    int i = 0;
+    DateTime current = DateTime.now();
+    while (i < checkins.length || i < x) {
+      print(current);
+      if (repeats[current.weekday - 1] && isCheckedInOnDate(current)) {
+        last14Days.insert(0, true);
+      } else {
+        last14Days.insert(0, false);
+      }
+
+      i = i + 1;
+      current = DateUtils.getPreviousDayFromRepeats(repeats, current);
+    }
+  }
+
+  void getMomentum() {
+    List<bool> last14Days = _getLastXDays(14);
+
+    print("Last 14 days: $last14Days");
   }
 }

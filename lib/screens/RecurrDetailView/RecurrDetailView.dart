@@ -75,7 +75,7 @@ class _RecurrDetailViewState extends State<RecurrDetailView> {
                   team: recurr.team, repeatString: recurr.getRepeatString()),
               SizedBox(height: 10),
               MomemtumHeader(setSelection: setSelection, selection: selection),
-              Momentum(height: height),
+              Momentum(height: height, recurr: recurr),
               LogHeader(),
               Log(height: height),
               SizedBox(height: 80),
