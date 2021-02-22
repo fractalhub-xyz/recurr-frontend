@@ -1,35 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ProfileMenuItem extends StatelessWidget {
   const ProfileMenuItem({
     Key key,
-    this.text,
     this.press,
-    this.icon,
+    this.title,
+    this.subtitle,
+    this.imgAdd,
   }) : super(key: key);
 
-  final String text;
+  final String title;
+  final String subtitle;
   final Function press;
-  final IconData icon;
+  final String imgAdd;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: press,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(width: 1.0, color: Colors.grey[500]),
+          ),
+        ),
+        padding: EdgeInsets.symmetric(vertical: 20),
         child: Row(
           children: [
-            Icon(
-              icon,
-              size: 30,
-            ),
+            SvgPicture.asset(imgAdd, height: 30),
             SizedBox(width: 10),
-            Text(text,
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Poppins')),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title,
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Poppins')),
+                SizedBox(height: 5),
+                Text(subtitle,
+                    style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'Poppins')),
+              ],
+            ),
             Spacer(),
             Icon(Icons.arrow_forward)
           ],

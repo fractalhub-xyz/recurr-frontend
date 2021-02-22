@@ -5,6 +5,7 @@ import 'package:recurr_fe/screens/CheckinView/CheckinView.dart';
 import 'package:recurr_fe/screens/CreateRecurrView/CreateRecurrView.dart';
 import 'package:recurr_fe/screens/Home/HomeView.dart';
 import 'package:recurr_fe/screens/Login/LoginView.dart';
+import 'package:recurr_fe/screens/UserDetailView/UserDetailView.dart';
 
 class App extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -27,6 +28,7 @@ class App extends StatelessWidget {
         '/home': (context) => HomeView(),
         '/recurr/create': (context) => CreateRecurrView(),
         '/recurr/checkin': (context) => CheckinView(),
+        '/profile': (context) => UserDetailView(),
         'notification': (context) => NotificationTestPage(),
       },
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recurr_fe/screens/Dashboard/dashboard.dart';
 import 'package:recurr_fe/screens/GroupListView/GroupListView.dart';
 import 'package:recurr_fe/screens/RecurrListView/RecurrListView.dart';
 import 'package:recurr_fe/screens/UserDetailView/UserDetailView.dart';
@@ -39,12 +40,12 @@ class _HomeViewState extends State<HomeView> {
         },
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Profile",
+            icon: Icon(Icons.timeline),
+            label: "Dashboard",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
-            label: "Dashboard",
+            label: "Home",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.group_sharp),
@@ -60,7 +61,7 @@ class _HomeViewState extends State<HomeView> {
           });
         },
         children: <Widget>[
-          UserDetailView(),
+          Dashboard(),
           RecurrListView(),
           GroupListView(),
         ],

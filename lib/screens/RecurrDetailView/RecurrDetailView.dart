@@ -18,19 +18,15 @@ class _RecurrDetailViewState extends State<RecurrDetailView> {
   Recurr recurr;
   _RecurrDetailViewState(this.recurr);
 
-  String repeatString = '';
-
-  String selection = 'weekly';
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
 
-    setSelection(choice) {
-      setState(() {
-        selection = choice;
-      });
-    }
+    // setSelection(choice) {
+    //   setState(() {
+    //     selection = choice;
+    //   });
+    // }
 
     return Scaffold(
       appBar: AppBar(
@@ -62,16 +58,6 @@ class _RecurrDetailViewState extends State<RecurrDetailView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Container(
-              //     margin: EdgeInsets.only(top: 20),
-              //     padding: EdgeInsets.symmetric(horizontal: EdgePadding),
-              //     child: Text(
-              //       'Overview',
-              //       style: TextStyle(
-              //           fontFamily: 'Poppins',
-              //           fontWeight: FontWeight.w600,
-              //           fontSize: 18),
-              //     )),
               Header(title: 'Overview'),
               Overview(recurr: recurr),
               // ScoreAndStreakCard(streak: recurr.getStreak()),

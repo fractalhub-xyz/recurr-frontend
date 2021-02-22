@@ -18,7 +18,7 @@ class NameWithAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double fs = 14.0;
+    final double fs = 20.0;
     return Container(
       padding: EdgeInsets.only(
           left: EdgePadding, right: EdgePadding, top: EdgePadding),
@@ -33,12 +33,17 @@ class NameWithAvatar extends StatelessWidget {
                 fontWeight: FontWeight.w600),
           ),
           Spacer(),
-          CircleAvatar(
-            backgroundImage: NetworkImage(
-              imageUrl,
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/profile');
+            },
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(
+                imageUrl,
+              ),
+              radius: fs,
+              backgroundColor: Colors.transparent,
             ),
-            radius: fs,
-            backgroundColor: Colors.transparent,
           ),
         ],
       ),
