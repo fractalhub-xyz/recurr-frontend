@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class DataPoint extends StatelessWidget {
   const DataPoint({
     Key key,
     this.title,
-    this.icon,
     this.data,
+    this.imgAdd,
   }) : super(key: key);
 
   final String title;
-  final IconData icon;
+  final String imgAdd;
   final String data;
 
   @override
@@ -20,14 +21,14 @@ class DataPoint extends StatelessWidget {
         Row(
           // crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Icon(icon, size: 19),
-            SizedBox(width: 3),
+            SvgPicture.asset(imgAdd, height: 22),
+            SizedBox(width: 4),
             Text(
               title,
               style: TextStyle(
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w300,
-                  fontSize: 14),
+                  fontSize: 16),
             ),
           ],
         ),
@@ -35,7 +36,7 @@ class DataPoint extends StatelessWidget {
         Text(
           data,
           style: TextStyle(
-              fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 18),
+              fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 20),
         ),
       ],
     );

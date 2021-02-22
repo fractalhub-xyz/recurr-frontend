@@ -29,19 +29,19 @@ class Overview extends StatelessWidget {
             children: [
               DataPoint(
                 title: 'Current Streak',
-                icon: Icons.local_fire_department,
+                imgAdd: "assets/icons/fire.svg",
                 data: '${recurr.getStreak()} days',
               ),
               SizedBox(height: 26),
               DataPoint(
                 title: 'Total Days',
-                icon: Icons.polymer,
+                imgAdd: "assets/icons/total.svg",
                 data: '${recurr.getStreak()} days',
               ),
               SizedBox(height: 26),
               DataPoint(
                 title: 'Repeats on',
-                icon: Icons.polymer,
+                imgAdd: "assets/icons/loop.svg",
                 data: '${recurr.getRepeatString()}',
               ),
             ],
@@ -52,13 +52,13 @@ class Overview extends StatelessWidget {
             children: [
               DataPoint(
                 title: 'Max Streak',
-                icon: Icons.stars,
+                imgAdd: "assets/icons/medal.svg",
                 data: '${recurr.getStreak()} days',
               ),
               SizedBox(height: 26),
               DataPoint(
                 title: 'Created on',
-                icon: Icons.calendar_today,
+                imgAdd: "assets/icons/calendar.svg",
                 data: '${recurr.createdAt.substring(0, 10)}',
               ),
             ],
