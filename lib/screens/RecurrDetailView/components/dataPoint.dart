@@ -15,30 +15,55 @@ class DataPoint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
       children: [
-        Row(
-          // crossAxisAlignment: CrossAxisAlignment.end,
+        SvgPicture.asset(imgAdd, height: 24),
+        SizedBox(width: 8),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SvgPicture.asset(imgAdd, height: 22),
-            SizedBox(width: 4),
             Text(
               title,
               style: TextStyle(
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w300,
-                  fontSize: 16),
+                  fontSize: 14),
+            ),
+            Text(
+              data,
+              style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14),
             ),
           ],
-        ),
-        SizedBox(height: 3),
-        Text(
-          data,
-          style: TextStyle(
-              fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 20),
-        ),
+        )
       ],
     );
   }
 }
+
+// Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Row(
+//           children: [
+//             SvgPicture.asset(imgAdd, height: 22),
+//             SizedBox(width: 4),
+//             Text(
+//               title,
+//               style: TextStyle(
+//                   fontFamily: 'Poppins',
+//                   fontWeight: FontWeight.w300,
+//                   fontSize: 16),
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 3),
+//         Text(
+//           data,
+//           style: TextStyle(
+//               fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 20),
+//         ),
+//       ],
+//     );
