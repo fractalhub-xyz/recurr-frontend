@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 
-class LogHeader extends StatelessWidget {
-  const LogHeader({
+class Header extends StatelessWidget {
+  const Header({
     Key key,
+    this.title,
   }) : super(key: key);
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class LogHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            'Your log',
+            title,
             style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,

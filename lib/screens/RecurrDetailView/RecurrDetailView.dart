@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:recurr_fe/constants.dart';
 import 'package:recurr_fe/models/recurr.dart';
+import 'package:recurr_fe/screens/RecurrDetailView/components/header.dart';
 import 'components/log.dart';
-import 'components/logHeader.dart';
-import 'components/momemtumGraph.dart';
-import 'components/momemtumHeader.dart';
-import 'components/scoreAndStreamCard.dart';
-import 'components/repeatDaysAndGroup.dart';
+import 'components/overview.dart';
 
 class RecurrDetailView extends StatefulWidget {
   final Recurr recurr;
@@ -22,11 +19,6 @@ class _RecurrDetailViewState extends State<RecurrDetailView> {
   _RecurrDetailViewState(this.recurr);
 
   String repeatString = '';
-
-  @override
-  void initState() {
-    // TODO: implement initState
-  }
 
   String selection = 'weekly';
 
@@ -68,15 +60,27 @@ class _RecurrDetailViewState extends State<RecurrDetailView> {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: EdgePadding),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 20),
-              ScoreAndStreakCard(streak: recurr.getStreak()),
-              RepeatDaysAndGroup(
-                  team: recurr.team, repeatString: recurr.getRepeatString()),
-              SizedBox(height: 10),
-              MomemtumHeader(setSelection: setSelection, selection: selection),
-              Momentum(height: height, recurr: recurr),
-              LogHeader(),
+              // Container(
+              //     margin: EdgeInsets.only(top: 20),
+              //     padding: EdgeInsets.symmetric(horizontal: EdgePadding),
+              //     child: Text(
+              //       'Overview',
+              //       style: TextStyle(
+              //           fontFamily: 'Poppins',
+              //           fontWeight: FontWeight.w600,
+              //           fontSize: 18),
+              //     )),
+              Header(title: 'Overview'),
+              Overview(recurr: recurr),
+              // ScoreAndStreakCard(streak: recurr.getStreak()),
+              // RepeatDaysAndGroup(
+              //     team: recurr.team, repeatString: recurr.getRepeatString()),
+              // SizedBox(height: 10),
+              // MomemtumHeader(setSelection: setSelection, selection: selection),
+              // Momentum(height: height, recurr: recurr),
+              Header(title: 'Your log'),
               Log(height: height),
               SizedBox(height: 80),
             ],
