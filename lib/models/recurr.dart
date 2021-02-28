@@ -13,6 +13,7 @@ class Recurr {
   List<bool> repeats;
   Map<String, Checkin> checkins = {};
   int currentStreak = 0;
+  int maxStreak = 0;
 
   Recurr(this.id, this.title, this.createdAt, this.team, this.duration,
       this.weight, this.repeats);
@@ -26,6 +27,7 @@ class Recurr {
         "weight": weight,
         "repeats": jsonEncode(repeats),
         "currentStreak": currentStreak,
+        "maxStreak": maxStreak,
         "checkins": checkins.map((key, value) => MapEntry(key, value.toJson())),
       };
 
@@ -38,15 +40,15 @@ class Recurr {
     team = json["team"];
     weight = json["weight"];
     currentStreak = json["currentStreak"];
+    maxStreak = json["maxStreak"];
     repeats = jsonDecode(json["repeats"]).cast<bool>().toList();
 
     json["checkins"]?.forEach((key, value) {
       checkins[key] = Checkin.fromJson(value);
     });
-    var dbyday = DateTime(2021, 2, 26, 22);
-    var yday = DateTime(2021, 2, 27, 22);
-    addNewCheckin(dbyday);
-    // addNewCheckin(yday);
+
+    addNewCheckin(DateTime(2021, 2, 25, 22));
+    addNewCheckin(DateTime(2021, 2, 26, 22));
   }
 
   // Methods
@@ -100,11 +102,19 @@ class Recurr {
     var today = DateTime.now();
     var prevDate = DateUtils.getPreviousDayFromRepeats(repeats, today);
 
-    if (!isCheckedInOnDate(prevDate)) {
+    if (!isCheckedInToday() && !isCheckedInOnDate(prevDate)) {
       currentStreak = 0;
     }
 
     return currentStreak;
+  }
+
+  int getMaxStreak() {
+    return maxStreak;
+  }
+
+  int getTotalDays() {
+    return checkins.length;
   }
 
   static List<Recurr> getTodaysRecurrs(List<Recurr> recurrs) {
@@ -163,6 +173,7 @@ class Recurr {
     var key = getCheckinKey(dt, user);
     checkins[key] = Checkin(timestamp: dt, user: user.uid);
     setStreak(dt);
+    setMaxStreak();
   }
 
   void setStreak(DateTime checkinTime) {
@@ -176,12 +187,17 @@ class Recurr {
     }
   }
 
+  void setMaxStreak() {
+    if (currentStreak > maxStreak) {
+      maxStreak = currentStreak;
+    }
+  }
+
   static List<Recurr> getRecurrsToCheckIn(List<Recurr> recurrs) {
     var todaysRecurs = Recurr.getTodaysRecurrs(recurrs);
     return todaysRecurs.where((rcr) => !rcr.isCheckedInToday()).toList();
   }
 
-/*
   // Returns last X day window as an array of int
   // if checked 1 (in future, this might be the value of check in), else 0
   List<int> _getLastXDays(int x) {
@@ -224,5 +240,4 @@ class Recurr {
 
     return flspt;
   }
-   */
 }

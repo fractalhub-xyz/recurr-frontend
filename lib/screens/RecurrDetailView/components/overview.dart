@@ -36,7 +36,7 @@ class Overview extends StatelessWidget {
               DataPoint(
                 title: 'Total Days',
                 imgAdd: "assets/icons/total.svg",
-                data: '${recurr.getStreak()} days',
+                data: '${recurr.getTotalDays()} days',
               ),
               SizedBox(height: 26),
               DataPoint(
@@ -53,7 +53,7 @@ class Overview extends StatelessWidget {
               DataPoint(
                 title: 'Max Streak',
                 imgAdd: "assets/icons/medal.svg",
-                data: '${recurr.getStreak()} days',
+                data: '${recurr.getMaxStreak()} days',
               ),
               SizedBox(height: 26),
               DataPoint(
