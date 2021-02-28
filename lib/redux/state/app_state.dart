@@ -1,8 +1,10 @@
 import 'package:recurr_fe/models/recurr.dart';
+import 'package:recurr_fe/redux/state/recurr_state.dart';
 import 'package:recurr_fe/redux/state/sync_state.dart';
 
 class AppState {
   final List<Recurr> recurrs;
+  final RecurrState recurrs_;
   final SyncState sync;
 
   // curly braces for named parameters
@@ -10,6 +12,7 @@ class AppState {
   AppState({
     this.recurrs = const [],
     this.sync = const SyncState(),
+    this.recurrs_ = const RecurrState(),
   });
 
   /*
