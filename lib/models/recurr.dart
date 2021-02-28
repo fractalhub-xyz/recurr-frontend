@@ -12,6 +12,7 @@ class Recurr {
   double weight;
   List<bool> repeats;
   Map<String, Checkin> checkins = {};
+  int currentStreak = 0;
 
   Recurr(this.id, this.title, this.createdAt, this.team, this.duration,
       this.weight, this.repeats);
@@ -24,6 +25,7 @@ class Recurr {
         "team": team,
         "weight": weight,
         "repeats": jsonEncode(repeats),
+        "currentStreak": currentStreak,
         "checkins": checkins.map((key, value) => MapEntry(key, value.toJson())),
       };
 
@@ -35,15 +37,16 @@ class Recurr {
     createdAt = json["createdAt"];
     team = json["team"];
     weight = json["weight"];
+    currentStreak = json["currentStreak"];
     repeats = jsonDecode(json["repeats"]).cast<bool>().toList();
 
     json["checkins"]?.forEach((key, value) {
       checkins[key] = Checkin.fromJson(value);
     });
-    var dbyday = DateTime(2021, 2, 1, 22);
-    var yday = DateTime(2021, 2, 2, 22);
-    addNewCheckin(yday);
+    var dbyday = DateTime(2021, 2, 26, 22);
+    var yday = DateTime(2021, 2, 27, 22);
     addNewCheckin(dbyday);
+    // addNewCheckin(yday);
   }
 
   // Methods
@@ -62,7 +65,7 @@ class Recurr {
     return days.join(" ");
   }
 
-  int getStreak() {
+  int depreceated__getStreak() {
     if (checkins.length == 0) {
       return 0;
     }
@@ -90,6 +93,18 @@ class Recurr {
     }
 
     return streak;
+  }
+
+  int getStreak() {
+    // check whether streak is valid
+    var today = DateTime.now();
+    var prevDate = DateUtils.getPreviousDayFromRepeats(repeats, today);
+
+    if (!isCheckedInOnDate(prevDate)) {
+      currentStreak = 0;
+    }
+
+    return currentStreak;
   }
 
   static List<Recurr> getTodaysRecurrs(List<Recurr> recurrs) {
@@ -144,8 +159,21 @@ class Recurr {
     if (user == null) {
       user = FirebaseAuth.instance.currentUser;
     }
+
     var key = getCheckinKey(dt, user);
     checkins[key] = Checkin(timestamp: dt, user: user.uid);
+    setStreak(dt);
+  }
+
+  void setStreak(DateTime checkinTime) {
+    DateTime prevDate =
+        DateUtils.getPreviousDayFromRepeats(repeats, checkinTime);
+
+    if (isCheckedInOnDate(prevDate)) {
+      currentStreak = currentStreak + 1;
+    } else {
+      currentStreak = 1;
+    }
   }
 
   static List<Recurr> getRecurrsToCheckIn(List<Recurr> recurrs) {
@@ -153,6 +181,7 @@ class Recurr {
     return todaysRecurs.where((rcr) => !rcr.isCheckedInToday()).toList();
   }
 
+/*
   // Returns last X day window as an array of int
   // if checked 1 (in future, this might be the value of check in), else 0
   List<int> _getLastXDays(int x) {
@@ -195,4 +224,5 @@ class Recurr {
 
     return flspt;
   }
+   */
 }
