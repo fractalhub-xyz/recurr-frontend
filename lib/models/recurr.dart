@@ -84,37 +84,6 @@ class Recurr {
     return checkins.length;
   }
 
-  /*
-  static List<Recurr> getTodaysRecurrs(List<Recurr> recurrs) {
-    int weekday = DateTime.now().weekday - 1;
-    List<Recurr> todaysRecurrs =
-        recurrs.where((rcr) => rcr.repeats[weekday]).toList();
-    todaysRecurrs.sort((Recurr a, Recurr b) {
-      if (a.isCheckedInToday()) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-    return todaysRecurrs;
-  }
-
-  static List<Recurr> getRecurrsByDate(List<Recurr> recurrs, DateTime date) {
-    return recurrs.where((rcr) => rcr.repeats[date.weekday - 1]).toList();
-  }
-
-  static List<Recurr> getCheckedInRecursByDate(
-      List<Recurr> recurrs, DateTime date) {
-    var rcrs = getRecurrsByDate(recurrs, date);
-    return rcrs.where((rcr) => rcr.isCheckedInOnDate(date));
-  }
-
-  static List<Recurr> getOtherRecurrs(List<Recurr> recurrs) {
-    int weekday = DateTime.now().weekday - 1;
-    return recurrs.where((rcr) => !rcr.repeats[weekday]).toList();
-  }
-  */
-
   String getCheckinKey(DateTime dt, [User user]) {
     if (user == null) {
       user = FirebaseAuth.instance.currentUser;
@@ -161,13 +130,6 @@ class Recurr {
       maxStreak = currentStreak;
     }
   }
-
-  /*
-  static List<Recurr> getRecurrsToCheckIn(List<Recurr> recurrs) {
-    var todaysRecurs = Recurr.getTodaysRecurrs(recurrs);
-    return todaysRecurs.where((rcr) => !rcr.isCheckedInToday()).toList();
-  }
-  */
 
   // Returns last X day window as an array of int
   // if checked 1 (in future, this might be the value of check in), else 0

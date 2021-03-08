@@ -36,7 +36,7 @@ Future<Store<AppState>> getStore() async {
   );
 
   // Set true if you want to debug
-  bool enableDevTools = true;
+  bool enableDevTools = false;
   if (enableDevTools) {
     remoteDevtools.store = store;
     await remoteDevtools.connect();
