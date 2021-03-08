@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:recurr_fe/models/recurr.dart';
 import 'package:recurr_fe/redux/actions/recurr_actions.dart';
 import 'package:recurr_fe/redux/state/app_state.dart';
+import 'package:recurr_fe/redux/state/recurr_state.dart';
 import 'package:recurr_fe/screens/CheckinView/components/checkinCard.dart';
 import 'package:slide_to_confirm/slide_to_confirm.dart';
 
@@ -105,11 +106,11 @@ class CheckinRecurContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, List<Recurr>>(
-        converter: (store) => store.state.recurrs.recurrList,
-        builder: (BuildContext context, recurrs) {
+    return StoreConnector<AppState, RecurrState>(
+        converter: (store) => store.state.recurrs,
+        builder: (BuildContext context, recurrState) {
           return Container(
-            child: getListContainer(Recurr.getRecurrsToCheckIn(recurrs)),
+            child: getListContainer(recurrState.getRecurrsToCheckIn()),
           );
         });
   }

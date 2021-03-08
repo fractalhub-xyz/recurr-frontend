@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:recurr_fe/constants.dart';
 import 'package:recurr_fe/models/recurr.dart';
 import 'package:recurr_fe/redux/state/app_state.dart';
+import 'package:recurr_fe/redux/state/recurr_state.dart';
 import 'package:recurr_fe/screens/RecurrListView/components/calender.dart';
 import 'package:recurr_fe/screens/RecurrListView/components/nameWithAvatar.dart';
 import 'package:recurr_fe/screens/RecurrListView/components/quote.dart';
@@ -33,9 +34,9 @@ class _RecurrListViewState extends State<RecurrListView> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, List<Recurr>>(
-      converter: (store) => store.state.recurrs.recurrList,
-      builder: (BuildContext context, recurrs) {
+    return StoreConnector<AppState, RecurrState>(
+      converter: (store) => store.state.recurrs,
+      builder: (BuildContext context, recurrState) {
         return Scaffold(
           body: SafeArea(
               child: SingleChildScrollView(
@@ -54,7 +55,7 @@ class _RecurrListViewState extends State<RecurrListView> {
                 Calender(setDate: setDate, selectedDate: selectedDate),
 
                 //RecurListContainer
-                getListContainer(recurrs)
+                getListContainer(recurrState)
               ],
             ),
           )),
@@ -63,9 +64,9 @@ class _RecurrListViewState extends State<RecurrListView> {
     );
   }
 
-  Widget getListContainer(List<Recurr> recurrs) {
+  Widget getListContainer(RecurrState recurrState) {
     if (DateTime.now().day == selectedDate.day) {
-      var todaysRecurrs = Recurr.getTodaysRecurrs(recurrs);
+      var todaysRecurrs = recurrState.getTodaysRecurrs();
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -106,7 +107,7 @@ class _RecurrListViewState extends State<RecurrListView> {
           Container(
             padding: EdgeInsets.only(top: EdgePadding * 0.3),
             child: Column(
-              children: Recurr.getOtherRecurrs(recurrs)
+              children: recurrState.getOtherRecurrs()
                   .map((recurr) => RecurrCard(recurr: recurr, selectedDate: selectedDate,))
                   .toList(),
             ),
@@ -128,7 +129,7 @@ class _RecurrListViewState extends State<RecurrListView> {
           Container(
             padding: EdgeInsets.only(top: EdgePadding * 0.3),
             child: Column(
-              children: Recurr.getRecurrsByDate(recurrs, selectedDate)
+              children: recurrState.getRecurrsByDate(selectedDate)
                   .map((recurr) =>
                       RecurrCard(recurr: recurr, selectedDate: selectedDate))
                   .toList(),

@@ -46,9 +46,6 @@ class Recurr {
     json["checkins"]?.forEach((key, value) {
       checkins[key] = Checkin.fromJson(value);
     });
-
-    addNewCheckin(DateTime(2021, 2, 25, 22));
-    addNewCheckin(DateTime(2021, 2, 26, 22));
   }
 
   // Methods
@@ -117,6 +114,7 @@ class Recurr {
     return checkins.length;
   }
 
+  /*
   static List<Recurr> getTodaysRecurrs(List<Recurr> recurrs) {
     int weekday = DateTime.now().weekday - 1;
     List<Recurr> todaysRecurrs =
@@ -145,6 +143,7 @@ class Recurr {
     int weekday = DateTime.now().weekday - 1;
     return recurrs.where((rcr) => !rcr.repeats[weekday]).toList();
   }
+  */
 
   String getCheckinKey(DateTime dt, [User user]) {
     if (user == null) {
@@ -193,10 +192,12 @@ class Recurr {
     }
   }
 
+  /*
   static List<Recurr> getRecurrsToCheckIn(List<Recurr> recurrs) {
     var todaysRecurs = Recurr.getTodaysRecurrs(recurrs);
     return todaysRecurs.where((rcr) => !rcr.isCheckedInToday()).toList();
   }
+  */
 
   // Returns last X day window as an array of int
   // if checked 1 (in future, this might be the value of check in), else 0

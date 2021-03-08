@@ -90,7 +90,7 @@ class _CheckinCardState extends State<CheckinCard> {
                       Row(
                         children: [
                           Text(
-                            '7',
+                            recurr.getStreak().toString(),
                             style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: fs1,
