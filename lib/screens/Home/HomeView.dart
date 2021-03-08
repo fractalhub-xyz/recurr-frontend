@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:recurr_fe/screens/Dashboard/dashboard.dart';
 import 'package:recurr_fe/screens/GroupListView/GroupListView.dart';
 import 'package:recurr_fe/screens/RecurrListView/RecurrListView.dart';
-import 'package:recurr_fe/screens/UserDetailView/UserDetailView.dart';
 
 class HomeView extends StatefulWidget {
   @override

@@ -64,36 +64,6 @@ class Recurr {
     return days.join(" ");
   }
 
-  int depreceated__getStreak() {
-    if (checkins.length == 0) {
-      return 0;
-    }
-
-    int streak = 0;
-    // Current checkin index
-    int i = 0;
-    DateTime current = DateTime.now();
-    // today
-    if (repeats[current.weekday - 1] && isCheckedInToday()) {
-      streak += 1;
-      i += 1;
-    }
-
-    // For calculating previous streak
-    while (i < checkins.length) {
-      current = DateUtils.getPreviousDayFromRepeats(repeats, current);
-
-      if (repeats[current.weekday - 1] && !isCheckedInOnDate(current)) {
-        break;
-      }
-
-      streak = streak + 1;
-      i = i + 1;
-    }
-
-    return streak;
-  }
-
   int getStreak() {
     // check whether streak is valid
     var today = DateTime.now();

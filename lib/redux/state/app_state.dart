@@ -1,4 +1,3 @@
-import 'package:recurr_fe/models/recurr.dart';
 import 'package:recurr_fe/redux/state/recurr_state.dart';
 import 'package:recurr_fe/redux/state/sync_state.dart';
 

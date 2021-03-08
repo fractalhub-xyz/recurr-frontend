@@ -4,16 +4,17 @@ import 'package:recurr_fe/constants.dart';
 
 class NameWithAvatar extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  String imageUrl, name;
 
-  NameWithAvatar() {
-    var user = _auth.currentUser;
-    name = user.displayName;
-    imageUrl = user.photoURL;
+  String getImageURL() => _auth.currentUser.photoURL;
+
+  String getName() {
+    var name = _auth.currentUser.displayName;
 
     if (name.contains(" ")) {
       name = name.substring(0, name.indexOf(" "));
     }
+
+    return name;
   }
 
   @override
@@ -26,7 +27,7 @@ class NameWithAvatar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'Hello $name!',
+            'Hello ${getName()}!',
             style: TextStyle(
                 fontSize: fs,
                 fontFamily: 'Poppins',
@@ -39,7 +40,7 @@ class NameWithAvatar extends StatelessWidget {
             },
             child: CircleAvatar(
               backgroundImage: NetworkImage(
-                imageUrl,
+                getImageURL(),
               ),
               radius: fs,
               backgroundColor: Colors.transparent,

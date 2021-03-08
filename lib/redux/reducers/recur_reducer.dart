@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:recurr_fe/models/checkin.dart';
 import 'package:recurr_fe/models/recurr.dart';
 import 'package:recurr_fe/redux/actions/recurr_actions.dart';
 import 'package:recurr_fe/redux/state/recurr_state.dart';

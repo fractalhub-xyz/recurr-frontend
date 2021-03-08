@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:recurr_fe/constants.dart';
-import 'package:recurr_fe/models/recurr.dart';
 import 'package:recurr_fe/redux/state/app_state.dart';
 import 'package:recurr_fe/redux/state/recurr_state.dart';
 import 'package:recurr_fe/screens/RecurrListView/components/calender.dart';

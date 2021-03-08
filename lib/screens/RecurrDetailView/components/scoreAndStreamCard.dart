@@ -11,7 +11,8 @@ class ScoreAndStreakCard extends StatelessWidget {
   final int streak;
 
   Widget streakIcon() {
-    if (false) {
+    var flag = false;
+    if (flag) {
       return SvgPicture.asset("assets/icons/fire.svg", height: fs1);
     } else {
       return SvgPicture.asset("assets/icons/hourglass.svg", height: fs1 - 2);

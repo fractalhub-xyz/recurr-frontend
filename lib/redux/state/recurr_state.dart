@@ -32,13 +32,7 @@ class RecurrState {
     var todaysRecurrs =
         recurrList.where((rcr) => rcr.repeats[weekday]).toList();
 
-    todaysRecurrs.sort((Recurr a, Recurr b) {
-      if (a.isCheckedInToday()) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
+    todaysRecurrs.sort((Recurr a, Recurr b) => a.isCheckedInToday() ? 1 : 0);
 
     return todaysRecurrs;
   }

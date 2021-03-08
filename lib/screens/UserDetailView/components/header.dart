@@ -3,18 +3,11 @@ import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  String imageUrl, name, email;
 
-  Header() {
-    var user = _auth.currentUser;
-    name = user.displayName;
-    imageUrl = user.photoURL;
-    email = user.email;
+  String getImageURL() => _auth.currentUser.photoURL;
+  String getName() => _auth.currentUser.displayName;
+  String getEmail() => _auth.currentUser.email;
 
-    if (name.contains(" ")) {
-      name = name.substring(0, name.indexOf(" "));
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +15,7 @@ class Header extends StatelessWidget {
       children: [
         CircleAvatar(
           backgroundImage: NetworkImage(
-            imageUrl,
+            getImageURL(),
           ),
           radius: 32,
           backgroundColor: Colors.transparent,
@@ -34,7 +27,7 @@ class Header extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              name,
+              getName(),
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
@@ -42,7 +35,7 @@ class Header extends StatelessWidget {
             ),
             SizedBox(height: 3),
             Text(
-              email,
+              getEmail(),
               style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w300,
