@@ -7,8 +7,6 @@ class AppState {
   final RecurrState recurrs_;
   final SyncState sync;
 
-  // curly braces for named parameters
-  // need to initial because member is final
   AppState({
     this.recurrs = const [],
     this.sync = const SyncState(),
@@ -24,11 +22,7 @@ class AppState {
       AppState(recurrs: recurrs ?? this.recurrs);
 
   static AppState fromJson(dynamic json) {
-    // print("JSON: ${json["recurrs"].runtimeType}");
-
     if (json == null) {
-      return AppState();
-    } else if (json['recurrs']?.length == 0) {
       return AppState();
     }
 
@@ -38,9 +32,14 @@ class AppState {
 
     return AppState(
       recurrs: recurrs,
+      recurrs_: RecurrState.fromJson(json),
+      sync: SyncState.fromJson(json),
     );
   }
 
   dynamic toJson() =>
-      {"recurrs": recurrs.map((recur) => recur.toJson()).toList()};
+      {
+        "recurrs": recurrs.map((recur) => recur.toJson()).toList(),
+        "sync": sync.toJson(),
+      };
 }
