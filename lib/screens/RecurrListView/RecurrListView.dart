@@ -34,7 +34,7 @@ class _RecurrListViewState extends State<RecurrListView> {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, List<Recurr>>(
-      converter: (store) => store.state.recurrs,
+      converter: (store) => store.state.recurrs.recurrList,
       builder: (BuildContext context, recurrs) {
         return Scaffold(
           body: SafeArea(

@@ -1,26 +1,28 @@
 import 'package:recurr_fe/models/recurr.dart';
 
 class RecurrState {
-  final List<Recurr> recurrs;
+  final List<Recurr> recurrList;
 
   const RecurrState({
-    this.recurrs = const [],
+    this.recurrList = const [],
   });
 
   RecurrState copyWith({
     List<Recurr> recurrs,
   }) =>
       RecurrState(
-        recurrs: recurrs ?? this.recurrs,
+        recurrList: recurrs ?? this.recurrList,
       );
 
   static RecurrState fromJson(dynamic json) {
+    List<Recurr> recurrs = json["recurrs"]
+        .map((recurrJson) => Recurr.fromJson(recurrJson))
+        .toList();
+
     return RecurrState(
-      recurrs: const [],
+      recurrList: recurrs,
     );
   }
 
-  dynamic toJson() => {
-        "recurrs": recurrs.map((recur) => recur.toJson()).toList(),
-      };
+  dynamic toJson() => recurrList.map((recur) => recur.toJson()).toList();
 }

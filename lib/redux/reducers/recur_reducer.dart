@@ -2,33 +2,38 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:recurr_fe/models/checkin.dart';
 import 'package:recurr_fe/models/recurr.dart';
 import 'package:recurr_fe/redux/actions/recurr_actions.dart';
+import 'package:recurr_fe/redux/state/recurr_state.dart';
 import 'package:redux/redux.dart';
 
-Reducer<List<Recurr>> recurrsReducer = combineReducers([
-  TypedReducer<List<Recurr>, AddRecurrAction>(_addRecurr),
-  TypedReducer<List<Recurr>, UpdateRecurrAction>(_updateRecurr),
-  TypedReducer<List<Recurr>, DeleteRecurrAction>(_deleteRecurr),
-  TypedReducer<List<Recurr>, CheckInAction>(_checkInRecur),
+Reducer<RecurrState> recurrsReducer = combineReducers([
+  TypedReducer<RecurrState, AddRecurrAction>(_addRecurr),
+  TypedReducer<RecurrState, UpdateRecurrAction>(_updateRecurr),
+  TypedReducer<RecurrState, DeleteRecurrAction>(_deleteRecurr),
+  TypedReducer<RecurrState, CheckInAction>(_checkInRecur),
 ]);
 
-List<Recurr> _addRecurr(List<Recurr> recurrs, AddRecurrAction action) {
-  return List.from(recurrs)..add(action.item);
+RecurrState _addRecurr(RecurrState recurrs, AddRecurrAction action) {
+  var newRecurrs = List<Recurr>.from(recurrs.recurrList)..add(action.item);
+  return recurrs.copyWith(recurrs: newRecurrs);
 }
 
-List<Recurr> _deleteRecurr(List<Recurr> recurrs, DeleteRecurrAction action) {
-  return recurrs.where((recurr) => recurr.id != action.id).toList();
+RecurrState _deleteRecurr(RecurrState recurrs, DeleteRecurrAction action) {
+  var newRecurrs =
+      recurrs.recurrList.where((recurr) => recurr.id != action.id).toList();
+  return recurrs.copyWith(recurrs: newRecurrs);
 }
 
-List<Recurr> _updateRecurr(List<Recurr> recurrs, UpdateRecurrAction action) {
-  return recurrs
+RecurrState _updateRecurr(RecurrState recurrs, UpdateRecurrAction action) {
+  var newRecurrs = recurrs.recurrList
       .map((recurr) => recurr.id == action.id ? action.item : recurr)
       .toList();
+  return recurrs.copyWith(recurrs: newRecurrs);
 }
 
-List<Recurr> _checkInRecur(List<Recurr> recurrs, CheckInAction action) {
+RecurrState _checkInRecur(RecurrState recurrs, CheckInAction action) {
   var timestamp = DateTime.now();
 
-  return recurrs.map((rcr) {
+  var newRecurrs = recurrs.recurrList.map((rcr) {
     if (action.recurIds.contains(rcr.id)) {
       if (!rcr.isCheckedInToday()) {
         rcr.addNewCheckin(timestamp);
@@ -36,4 +41,6 @@ List<Recurr> _checkInRecur(List<Recurr> recurrs, CheckInAction action) {
     }
     return rcr;
   }).toList();
+
+  return recurrs.copyWith(recurrs: newRecurrs);
 }
