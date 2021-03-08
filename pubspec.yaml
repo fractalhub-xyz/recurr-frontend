@@ -40,6 +40,8 @@ dependencies:
   permission_handler: ^5.0.1+1
   path_provider: ^1.6.27
   flutter_svg: ^0.19.2+1
+  redux_remote_devtools: ^2.0.0
+
 
 dev_dependencies:
   flutter_test:

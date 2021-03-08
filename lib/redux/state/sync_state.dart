@@ -26,5 +26,7 @@ class SyncState {
 
   dynamic toJson() => {
         "retry": retry.toList(),
-      };
+        "connectivity": connectivity,
+        "isSyncing": isSyncing,
+       };
 }
